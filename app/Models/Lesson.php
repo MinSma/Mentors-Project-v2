@@ -10,7 +10,8 @@ class Lesson extends Model
         'level',
         'subject',
         'description',
-        'qualification'
+        'qualification',
+        'mentor_id'
     ];
     
     /**

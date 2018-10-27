@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\LessonCreateRequest;
 use App\Models\Lesson;
-use App\Models\Mentor;
 use App\Repositories\LessonsRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +19,9 @@ class LessonsController extends Controller
     
     public function showLessons()
     {
-        $lessons = $this->lessonsRepository->model()::paginate(10);
+        $id = Auth::guard('mentor')->user()['id'];
+    
+        $lessons = $this->lessonsRepository->model()::where('mentor_id', $id)->get();
     
         return view('lessons.dashboard', ['lessons' => $lessons]);
     }
@@ -34,18 +34,21 @@ class LessonsController extends Controller
     public function store(LessonCreateRequest $request)
     {
         $id = Auth::guard('mentor')->user()['id'];
+        
+        if($id != null) {
+            $data = [
+                'mentor_id'     => $id,
+                'level'         => $request->getLevel(),
+                'subject'       => $request->getSubject(),
+                'description'   => $request->getDescription(),
+                'qualification' => $request->getQualification(),
+            ];
     
-        $data = [
-            'level' => $request->getLevel(),
-            'subject' => $request->getSubject(),
-            'description' => $request->getDescription(),
-            'qualification' => $request->getQualification(),
-            'mentor_id' => $id,
-        ];
-        
-        $this->lessonsRepository->create($data);
-        
-        return redirect('/login')->withSuccess('Pamoka buvo sėkmingai sukurta');
+            $this->lessonsRepository->create($data);
+    
+            return redirect('/login')->withSuccess('Pamoka buvo sėkmingai sukurta');
+        }
+        return redirect()->back()->withErrors('Nepavyko, jūs nesate mentorius');
     }
     
     public function destroy(Lesson $lesson)

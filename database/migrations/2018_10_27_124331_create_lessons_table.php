@@ -19,7 +19,7 @@ class CreateLessonsTable extends Migration
             $table->string('subject');
             $table->string('description');
             $table->string('qualification');
-            $table->integer('mentor_id')->nullable()->unsigned();
+            $table->integer('mentor_id')->unsigned();
             $table->foreign('mentor_id')->references('id')->on('mentors');
             $table->timestamps();
         });
