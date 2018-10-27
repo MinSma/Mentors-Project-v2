@@ -363,3 +363,8 @@ color: #999;
 .u-margin-top-10px{
     margin-top: 10px;
 }
+
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+}
