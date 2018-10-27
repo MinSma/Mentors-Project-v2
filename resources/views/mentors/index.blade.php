@@ -40,8 +40,9 @@
                         <div class="btn-group">
                             <div class="lower-button">
                             <a class="btn btn-small btn-info orange-bg" href="{{ URL::to('mentors/' . $value->id . '/edit') }}">Keisti Mentoriaus Duomenis</a>
+                            <a class="btn btn-small btn-info orange-bg u-margin-top-10px" href="{{ URL::to('mentors/' . $value->id . '/edit') }}">Koreguoti vertinimą</a>
                             </div>
-                                    
+
                              {{ Form::open(array('url' => 'mentors/' . $value->id . '/delete', 'class' => 'pull-left')) }}
                             {{ Form::hidden('_method', 'DELETE') }}
                             {{ Form::submit('Ištrinti Mentorių', array('class' => 'btn btn-small btn-info orange-bg')) }}

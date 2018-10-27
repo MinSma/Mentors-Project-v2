@@ -77,3 +77,9 @@ Route::get('mentors/{mentor}/unreservation', 'ReservationsController@unstore')->
 
 // Rating routing
 Route::post('mentors/{mentor}/rating', 'RatingsController@store')->name('rating.store');
+
+// Lessons routing
+Route::get('/lessons/dashboard', 'LessonsController@showLessons')->name('lessons.dashboard');
+Route::get('/lessons/create', 'LessonsController@create')->name('lessons.create');
+Route::post('/lessons', 'LessonsController@store')->name('lessons.store');
+Route::delete('lessons/{lesson}/delete', 'LessonsController@destroy')->name('lessons.delete');

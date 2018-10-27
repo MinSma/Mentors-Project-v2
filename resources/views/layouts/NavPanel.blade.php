@@ -14,6 +14,13 @@
             <ul class="nav navbar-nav navbar-right">
     @if(Auth::guard('mentor')->check())
         <li><a href="{{ route('mentors.dashboard') }}">Vartotojo Erdvė</a></li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Pamokos <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ route('lessons.dashboard') }}">Peržiūrėti Pamokas</a></li>
+                <li><a href="{{ route('lessons.create') }}">Sukurti Pamoką</a></li>
+            </ul>
+        </li>
         <li><a href="{{ route('mentors.students') }}">Studentai</a></li>
         <li><a href="/mentors/{{ Auth::guard('mentor')->user()['id'] }}/edit">Duomenų Keitimas</a></li>
         <li><a href="{{ route('mentors.changePassword') }}">Slaptažodžio Keitimas</a></li>

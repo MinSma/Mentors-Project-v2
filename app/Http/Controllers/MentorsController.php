@@ -249,4 +249,5 @@ class MentorsController extends Controller
         else
             return redirect()->back()->withErrors('Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
     }
+    
 }
