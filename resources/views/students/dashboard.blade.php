@@ -7,17 +7,30 @@
     <div class="row">
         <div class="col-lg-12 col-sm-6">
             <div class="circle-tile">
+                <div class="green">
+                    <div class="circle-tile-description text-faded">
+                        Balansas
+                    </div>
+                    <div class="circle-tile-number text-faded">
+                        0.00
+                    </div>
+                    <a href="{{ route('payments.paymentForm') }}" class="circle-tile-footer">Atlikti pervedimą <i class="fa fa-chevron-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-6">
+            <div class="circle-tile">
                 <div class="circle-tile-heading green">
                     <i class="fa fa-users fa-fw fa-3x"></i>
                 </div>
                 <div class="circle-tile-content green">
                     <div class="circle-tile-description text-faded">
-                        Mentoriai
+                        Rezervacijos
                     </div>
                     <div class="circle-tile-number text-faded">
-                        Kuriems Priklausote
+                        Kurioms priklausote
                     </div>
-                    <a href="{{ route('students.mentors') }}" class="circle-tile-footer">Daugiau informacijos <i class="fa fa-chevron-circle-right"></i></a>
+                    <a href="{{ route('reservations.showForStudents') }}" class="circle-tile-footer">Daugiau informacijos <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
             </div>
         </div>

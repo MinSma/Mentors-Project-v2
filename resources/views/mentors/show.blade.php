@@ -30,8 +30,6 @@
                         <div class="btn-group">
                         <div class=""> 
                             @if(Auth::guard('student')->check() || !Auth::guest())
-                            <a class="btn btn-small btn-info orange-bg" href="{{ route('reservation.store', $mentor) }}">Užsirašyti</a>
-                            <a class="btn btn-small btn-info orange-bg" href="{{ route('reservation.unstore', $mentor) }}">Išsiregistruoti</a>
                             <a class="btn btn-small btn-info orange-bg" href="{{ route('lessons.showForStudents', $mentor) }}">Pamokos</a>
                             @endif
                             </div>              

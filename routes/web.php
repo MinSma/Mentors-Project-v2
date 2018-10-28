@@ -96,5 +96,8 @@ Route::post('/appointments', 'AppointmentsController@store')->name('appointments
 Route::delete('appointments/{appointment}/delete', 'AppointmentsController@destroy')->name('appointments.delete');
 
 
+Route::get('/payments/pay', 'BankAccountController@showPaymentForm')->name('payments.paymentForm');
+
+
 
 
