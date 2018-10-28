@@ -133,6 +133,17 @@ class StudentsController extends Controller
     }
 
     /**
+     * @param Student $student
+     * @return View
+     */
+    public function block(Student $student): View
+    {
+        return view('students.block', [
+            'student' => $student
+        ]);
+    }
+
+    /**
      * @param StudentUpdateRequest $request
      * @param Student $student
      * @return mixed

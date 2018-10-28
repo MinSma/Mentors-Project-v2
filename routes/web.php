@@ -23,6 +23,7 @@ Route::get('mentors/create', 'MentorsController@create')->name('mentors.create')
 Route::get('mentors/{mentor}/', 'MentorsController@show')->name('mentors.show');
 Route::group(['middleware' => ['auth' || 'auth:mentor']], function(){
 	Route::get('mentors/{mentor}/edit', 'MentorsController@edit')->name('mentors.edit');
+	Route::get('mentors/{mentor}/block', 'MentorsController@block')->name('mentors.block');
 });
 Route::post('mentors/', 'MentorsController@store')->name('mentors.store');
 Route::put('mentors/{mentor}/update', 'MentorsController@update')->name('mentors.update');
@@ -39,6 +40,7 @@ Route::get('students/touch-mentors', 'StudentsController@touchMentors')->name('s
 Route::get('students/{student}/', 'StudentsController@show')->name('students.show');
 Route::group(['middleware' => ['auth' || 'auth:student']], function(){
 	Route::get('students/{student}/edit', 'StudentsController@edit')->name('students.edit');
+	Route::get('students/{student}/block', 'StudentsController@block')->name('students.block');
 });
 Route::post('students/', 'StudentsController@store')->name('students.store');
 Route::put('students/{student}/update', 'StudentsController@update')->name('students.update');
@@ -49,10 +51,10 @@ Route::get('users/', 'UsersController@index')->name('users.index')->middleware('
 Route::get('users/dashboard', 'UsersController@dashboard')->name('users.dashboard')->middleware('auth');
 Route::get('users/dashboard/change', 'UsersController@changePassword')->name('users.changePassword')->middleware('auth');
 Route::post('users/dashboard/change', 'UsersController@storePassword')->name('users.storePassword')->middleware('auth');
-Route::get('users/create', 'UsersController@create')->name('users.create')->middleware('auth');
+Route::get('users/create', 'UsersController@create')->name('users.create');
 Route::get('users/{user}/', 'UsersController@show')->name('users.show');
 Route::get('users/{user}/edit', 'UsersController@edit')->name('users.edit')->middleware('auth');
-Route::post('users/', 'UsersController@store')->name('users.store')->middleware('auth');
+Route::post('users/', 'UsersController@store')->name('users.store');
 Route::put('users/{user}/update', 'UsersController@update')->name('users.update')->middleware('auth');
 Route::delete('users/{user}/delete', 'UsersController@destroy')->name('users.delete')->middleware('auth');
 

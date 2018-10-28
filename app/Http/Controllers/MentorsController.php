@@ -163,6 +163,15 @@ class MentorsController extends Controller
     }
 
     /**
+     * @param Mentor $mentor
+     * @return View
+     */
+    public function block(Mentor $mentor): View
+    {
+        return view('mentors.block', compact('mentor'));
+    }
+
+    /**
      * @param MentorUpdateRequest $request
      * @param Mentor $mentor
      * @return mixed
