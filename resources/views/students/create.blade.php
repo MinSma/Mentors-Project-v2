@@ -1,5 +1,5 @@
 @include('guestPagesLayouts.homeHeaderIncludes')
-@include('guestPagesLayouts.homeNavigation')
+@include('layouts.Navpanel')
 @include('guestPagesLayouts.homeHeaderSection')
 <h1 class="mb-2 text-center">Studento registracija</h1>
 

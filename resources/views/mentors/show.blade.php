@@ -1,5 +1,5 @@
     @include('guestPagesLayouts.homeHeaderIncludes')
-    @include('guestPagesLayouts.homeNavigation')
+    @include('layouts.Navpanel')
     @include('guestPagesLayouts.homeHeaderSection')
 
 <div class="container lower">
@@ -32,7 +32,8 @@
                             @if(Auth::guard('student')->check() || !Auth::guest())
                             <a class="btn btn-small btn-info orange-bg" href="{{ route('reservation.store', $mentor) }}">Užsirašyti</a>
                             <a class="btn btn-small btn-info orange-bg" href="{{ route('reservation.unstore', $mentor) }}">Išsiregistruoti</a>
-                            @endif                        
+                            <a class="btn btn-small btn-info orange-bg" href="{{ route('lessons.showForStudents', $mentor) }}">Pamokos</a>
+                            @endif
                             </div>              
                         </div>
                     </div>

@@ -6,7 +6,7 @@
     </head>
 
     <body id="Mentors_Project" data-spy="scroll" data-target=".navbar" data-offset="60">
-        @include('guestPagesLayouts.homeNavigation')
+    @include('layouts.Navpanel')
         @include('guestPagesLayouts.homeHeaderSection')
         @include('guestPagesLayouts.homeAboutSection')
     </body>

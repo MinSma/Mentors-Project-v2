@@ -35,6 +35,7 @@ Route::get('students/dashboard', 'StudentsController@dashboard')->name('students
 Route::get('students/dashboard/change', 'StudentsController@changePassword')->name('students.changePassword')->middleware('auth:student');
 Route::post('students/dashboard/change', 'StudentsController@storePassword')->name('students.storePassword')->middleware('auth:student');
 Route::get('students/create', 'StudentsController@create')->name('students.create');
+Route::get('students/touch-mentors', 'StudentsController@touchMentors')->name('students.touchMentors')->middleware('auth:student');
 Route::get('students/{student}/', 'StudentsController@show')->name('students.show');
 Route::group(['middleware' => ['auth' || 'auth:student']], function(){
 	Route::get('students/{student}/edit', 'StudentsController@edit')->name('students.edit');
@@ -73,13 +74,16 @@ Route::post('mentors/{mentor}/comment', 'CommentsController@store')->name('comme
 
 // Reservation routing
 Route::get('mentors/{mentor}/reservation', 'ReservationsController@store')->name('reservation.store');
+Route::get('reservations/students', 'ReservationsController@showForStudents')->name('reservations.showForStudents');
 Route::get('mentors/{mentor}/unreservation', 'ReservationsController@unstore')->name('reservation.unstore');
+Route::get('/reservations/dashboard', 'ReservationsController@show')->name('reservations.dashboard');
 
 // Rating routing
 Route::post('mentors/{mentor}/rating', 'RatingsController@store')->name('rating.store');
 
 // Lessons routing
 Route::get('/lessons/dashboard', 'LessonsController@showLessons')->name('lessons.dashboard');
+Route::get('/lessons/students-lessons', 'LessonsController@showForStudents')->name('lessons.showForStudents');
 Route::get('/lessons/create', 'LessonsController@create')->name('lessons.create');
 Route::post('/lessons', 'LessonsController@store')->name('lessons.store');
 Route::delete('lessons/{lesson}/delete', 'LessonsController@destroy')->name('lessons.delete');
@@ -90,3 +94,7 @@ Route::get('/appointments/dashboard', 'AppointmentsController@show')->name('appo
 Route::get('/appointments/create', 'AppointmentsController@create')->name('appointments.create');
 Route::post('/appointments', 'AppointmentsController@store')->name('appointments.store');
 Route::delete('appointments/{appointment}/delete', 'AppointmentsController@destroy')->name('appointments.delete');
+
+
+
+

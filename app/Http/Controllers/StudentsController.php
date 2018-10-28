@@ -219,4 +219,9 @@ class StudentsController extends Controller
         else
             return redirect()->back()->withErrors('Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
     }
+
+    public function touchMentors()
+    {
+        return view('students.touch');
+    }
 }

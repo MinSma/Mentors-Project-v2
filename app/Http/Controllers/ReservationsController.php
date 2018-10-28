@@ -28,6 +28,16 @@ class ReservationsController extends Controller
     {
         $this->reservationsRepository = $reservationsRepository;
     }
+    
+    public function show()
+    {
+        return view('reservations.dashboard');
+    }
+    
+    public function showForStudents()
+    {
+        return view('reservations.showForStudents');
+    }
 
     /**
      * @param Mentor $mentor

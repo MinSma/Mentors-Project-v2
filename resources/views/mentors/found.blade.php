@@ -1,5 +1,5 @@
     @include('guestPagesLayouts.homeHeaderIncludes')
-    @include('guestPagesLayouts.homeNavigation')
+    @include('layouts.Navpanel')
     @include('guestPagesLayouts.homeHeaderSection')
 <div class="container lower">
     <div class="row">
@@ -30,6 +30,12 @@
                         <div class="btn-group">
                             <a class="btn btn-small btn-info orange-bg" href="{{ URL::to('mentors/' . $mentor->id ) }}">Profilis</a>                          
                         </div>
+                        @if(Auth::guard('student')->check() || !Auth::guest())
+                            <div class="btn-group">
+                                <a class="btn btn-small btn-info orange-bg" href="{{ route('students.touchMentors') }}">Susisiekti su mentoriumi</a>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use App\Repositories\AppointmentsRepository;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentsController extends Controller
 {
@@ -15,13 +16,15 @@ class AppointmentsController extends Controller
         $this->appointmentsRepository = $appointmentsRepository;
     }
     
-    public function show(Lesson $lesson)
+    public function show()
     {
-        $id = Auth::guard('mentor')->user()['id'];
+        //$id = Auth::guard('mentor')->user()['id'];
     
-        $appointments = $this->appointmentsRepository->model()::where('mentor_id', $id)->where('lesson_id', $lesson['id'])->get();
+        //$appointments = $this->appointmentsRepository->model()::where('mentor_id', $id)->where('lesson_id', $lesson['id'])->get();
         
-        return view('appointments.dashboard', ['appointments' => $appointments]);
+        return view('appointments.dashboard'
+           // ['appointments' => $appointments]
+        );
     }
     
     public function create()

@@ -1,5 +1,5 @@
 @include('guestPagesLayouts.homeHeaderIncludes')
-@include('guestPagesLayouts.homeNavigation')
+@include('layouts.Navpanel')
 @include('guestPagesLayouts.homeHeaderSection')
 <div class="container lower">
     <div class="row centered-form">

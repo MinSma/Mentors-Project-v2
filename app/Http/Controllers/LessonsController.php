@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LessonCreateRequest;
 use App\Models\Lesson;
+use App\Models\Mentor;
 use App\Repositories\LessonsRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,13 @@ class LessonsController extends Controller
         $lessons = $this->lessonsRepository->model()::where('mentor_id', $id)->get();
     
         return view('lessons.dashboard', ['lessons' => $lessons]);
+    }
+    
+    public function showForStudents(Mentor $mentor)
+    {
+        $lessons = $this->lessonsRepository->model()::where('mentor_id', $mentor['id'])->get();
+    
+        return view('lessons.showForStudents', ['lessons' => $lessons]);
     }
     
     public function create()

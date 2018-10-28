@@ -37,6 +37,10 @@
                                 </div>
                                 <div class="btn-group">
                                     <a class="btn btn-small btn-info orange-bg"
+                                       href="{{ route('appointments.dashboard') }}">Parodyti užsiėmimus</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn btn-small btn-info orange-bg"
                                        href="{{ route('appointments.create') }}">Pridėti
                                         užsiėmimą</a>
                                 </div>
