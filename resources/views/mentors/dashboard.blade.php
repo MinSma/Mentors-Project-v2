@@ -12,12 +12,12 @@
                 </div>
                 <div class="circle-tile-content orange-bg">
                     <div class="circle-tile-description text-faded">
-                        Jums Priklausantys
+                        Jums Priklausančios
                     </div>
                     <div class="circle-tile-number text-faded">
-                        Studentai
+                        Rezervacijos
                     </div>
-                    <a href="{{ route('mentors.students') }}" class="circle-tile-footer">Daugiau informacijos <i class="fa fa-chevron-circle-right"></i></a>
+                    <a href="{{ route('reservations.dashboard') }}" class="circle-tile-footer">Daugiau informacijos <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
             </div>
         </div>
