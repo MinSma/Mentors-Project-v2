@@ -22,7 +22,6 @@
                             <li><a href="{{ route('lessons.create') }}">Sukurti Pamoką</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('mentors.students') }}">Studentai</a></li>
                     <li><a href="/mentors/{{ Auth::guard('mentor')->user()['id'] }}/edit">Duomenų Keitimas</a></li>
                     <li><a href="{{ route('mentors.changePassword') }}">Slaptažodžio Keitimas</a></li>
                     <li><a href="{{ route('login.disconnect') }}">Atsijungti</a></li>
