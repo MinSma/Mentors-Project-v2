@@ -56,13 +56,33 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="age">Amžius:</label>
-                    <input type="text" class="form-control" id="age"  name="age" value="{{ old('age') }}" required>
+                    <label for="city">Miestas:</label>
+                    <input type="text" class="form-control" id="city"  name="city" value="{{ old('city') }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="city">Miestas:</label>
-                    <input type="text" class="form-control" id="city"  name="city" value="{{ old('city') }}" required>
+                    <label for="address">Adresas:</label>
+                    <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthday">Gimimo data:</label>
+                    <input type="date" class="form-control" id="birthday"  name="birthday" value="{{ old('birthday') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="education">Išsilavinimas</label>
+                    <select name="education" id="education" class="form-control">
+                        <option value="pradinis"     @if (old('education') == "Pradinis") {{ 'selected' }}       @endif>Pradinis</option>
+                        <option value="pagrindinis"     @if (old('education') == "Pagrindinis") {{ 'selected' }}       @endif>Pagrindinis</option>
+                        <option value="vidurinis"     @if (old('education') == "Vidurinis") {{ 'selected' }}       @endif>Vidurinis</option>
+                        <option value="aukstasis"   @if (old('education') == "Aukštasis") {{ 'selected' }}     @endif>Aukštasis</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefono numeris:</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required>
                 </div>
 
                 <div class="form-group">

@@ -56,34 +56,30 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="age">Amžius:</label>
-                    <input type="number" class="form-control" id="age"  name="age" value="{{ old('age') }}" required>
-                </div>
-
-                <div class="form-group">
                     <label for="city">Miestas:</label>
                     <input type="text" class="form-control" id="city" name="city" value="{{ old('city') }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="topic">Tema:</label>
-
-                    <select name="topic" id="topic" class="form-control">
-                        <option value="Matematika" @if (old('topic') == "Matematika") {{ 'selected' }}   @endif>Matematika</option>
-                        <option value="Anglu kalba"     @if (old('topic') == "Anglu kalba") {{ 'selected' }}       @endif>Anglu kalba</option>
-                        <option value="Informacines Technologijos" @if (old('topic') == "Informacines Technologijos") {{ 'selected' }} @endif>Informacines Technologijos</option>
-                        <option value="Chemija"   @if (old('topic') == "Chemija") {{ 'selected' }}     @endif>Chemija</option>
-                        <option value="Fizika"     @if (old('topic') == "Fizika") {{ 'selected' }}       @endif>Fizika</option>
-                        <option value="Biologija"     @if (old('topic') == "Biologija") {{ 'selected' }}       @endif>Biologija</option>
-                        <option value="Geografija"   @if (old('topic') == "Geografija") {{ 'selected' }}     @endif>Geografija</option>
-                        <option value="Istorija"     @if (old('topic') == "Istorija") {{ 'selected' }}       @endif>Istorija</option>
-                    </select>
+                    <label for="address">Adresas:</label>
+                    <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="fixed_hour_price">Valandinis įkainis:</label>
-                    <input type="text" class="form-control" id="fixed_hour_price"  name="fixed_hour_price" value="{{ old('fixed_hour_price') }}" required>
+                    <label for="birthday">Gimimo data:</label>
+                    <input type="date" class="form-control" id="birthday"  name="birthday" value="{{ old('birthday') }}" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="about">Trumpai apie save</label>
+                    <input type="text" class="form-control" id="about" name="about" value="{{ old('about') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefono numeris:</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required>
+                </div>
+
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-small btn-info orange-bg">Registruotis</button>
