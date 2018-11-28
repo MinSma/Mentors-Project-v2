@@ -47,9 +47,9 @@ class AppointmentsController extends Controller
             
             $this->lessonsRepository->create($data);
             
-            return redirect('/login')->withSuccess('Pamoka buvo sėkmingai sukurta');
+            return redirect('/login')->with('status', 'Pamoka buvo sėkmingai sukurta');
         }
-        return redirect()->back()->withErrors('Nepavyko, jūs nesate mentorius');
+        return redirect()->back()->with('status', 'Nepavyko, jūs nesate mentorius');
     }
     
     public function destroy(Lesson $lesson)
@@ -57,6 +57,6 @@ class AppointmentsController extends Controller
         
         $lesson->delete();
         
-        return redirect()->back()->withSuccess('Pamoka buvo sėkmingai pašalintas');
+        return redirect()->back()->with('status', 'Pamoka buvo sėkmingai pašalintas');
     }
 }

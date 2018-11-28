@@ -29,6 +29,10 @@ class StudentUpdateRequest extends FormRequest
             'gender'                => 'required',
             'age'                   => 'required|integer|min:1',
             'city'                  => 'required|max:255|regex:/[a-zA-Z]+/',
+            'address'               => 'required',
+            'birthday'              => 'required',
+            'education'             => 'required',
+            'phone'                 => 'required',
         ];
     }
 
@@ -70,5 +74,35 @@ class StudentUpdateRequest extends FormRequest
     public function getCity()
     {
         return $this->input('city');
+    }
+    
+    /**
+     * @return array|string
+     */
+    public function getAddress()
+    {
+        return $this->input('address');
+    }
+    
+    /**
+     * @return array|string
+     */
+    public function getBirthday()
+    {
+        return $this->input('birthday');
+    }
+    /**
+     * @return array|string
+     */
+    public function getEducation()
+    {
+        return $this->input('education');
+    }
+    /**
+     * @return array|string
+     */
+    public function getPhone()
+    {
+        return $this->input('phone');
     }
 }

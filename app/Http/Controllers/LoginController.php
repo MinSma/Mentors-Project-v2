@@ -58,15 +58,15 @@ class LoginController extends Controller
     public function connect(LoginRequest $request)
     {
         if ($this->loginService->tryStudent($request))
-            return redirect()->route('students.dashboard')->withSuccess('Sėkmingai prisijungėte');
+            return redirect()->route('students.dashboard')->with('status', 'Sėkmingai prisijungėte');
 
         else if ($this->loginService->tryMentor($request))
-            return redirect()->route('mentors.dashboard')->withSuccess('Sėkmingai prisijungėte');
+            return redirect()->route('mentors.dashboard')->with('status', 'Sėkmingai prisijungėte');
 
         else if ($this->loginService->tryUser($request))
-            return redirect()->route('users.dashboard')->withSuccess('Sėkmingai prisijungėte');
+            return redirect()->route('users.dashboard')->with('status', 'Sėkmingai prisijungėte');
 
-        else return redirect()->back()->withErrors('Prisijungimas nepavyko, įvesti blogi prisijungimo duomenys');
+        else return redirect()->back()->with('status', 'Prisijungimas nepavyko, įvesti blogi prisijungimo duomenys');
     }
 
     /**
@@ -78,6 +78,6 @@ class LoginController extends Controller
         auth('student')->logout();
         auth('web')->logout();
 
-        return view('login.index')->withSuccess('Sėkmingai atsijungėte');
+        return view('login.index')->with('status', 'Sėkmingai atsijungėte');
     }
 }

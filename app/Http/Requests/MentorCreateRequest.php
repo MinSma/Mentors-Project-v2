@@ -31,8 +31,10 @@ class MentorCreateRequest extends FormRequest
             'gender'                => 'required',
             'age'                   => 'required|integer|min:1',
             'city'                  => 'required|max:255|regex:/[a-zA-Z]+/',
-            'topic'                 => 'required',
-            'fixed_hour_price'      => 'required|numeric|min:0.0',
+            'address'               => 'required',
+            'birthday'              => 'required',
+            'about'                 => 'required',
+            'phone'                 => 'required',
         ];
     }
 
@@ -96,17 +98,31 @@ class MentorCreateRequest extends FormRequest
     /**
      * @return array|string
      */
-    public function getTopic()
+    public function getAddress()
     {
-        return $this->input('topic');
+        return $this->input('address');
     }
 
     /**
      * @return array|string
      */
-    public function getFixedHourPrice()
+    public function getBirthday()
     {
-        return $this->input('fixed_hour_price');
+        return $this->input('birthday');
+    }
+    /**
+     * @return array|string
+     */
+    public function getAbout()
+    {
+        return $this->input('about');
+    }
+    /**
+     * @return array|string
+     */
+    public function getPhone()
+    {
+        return $this->input('phone');
     }
 
 }

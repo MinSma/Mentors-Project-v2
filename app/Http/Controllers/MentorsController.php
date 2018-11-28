@@ -114,14 +114,15 @@ class MentorsController extends Controller
             'gender' => $request->getGender(),
             'age' => $request->getAge(),
             'city' => $request->getCity(),
-            'topic' => $request->getTopic(),
-            'fixed_hour_price' => $request->getFixedHourPrice(),
-            'rating' => 0.0
+            'address' => $request->getAddress(),
+            'birthday' => $request->getBirthday(),
+            'about' => $request->getAbout(),
+            'phone' => $request->getPhone(),
         ];
 
         $this->mentorsRepository->create($data);
 
-        return redirect('/login')->withSuccess('Mentorius buvo sėkmingai sukurtas');
+        return redirect('/login')->with('status', 'Mentorius buvo sėkmingai sukurtas');
     }
 
     /**
@@ -184,11 +185,14 @@ class MentorsController extends Controller
             'gender' => $request->getGender(),
             'age' => $request->getAge(),
             'city' => $request->getCity(),
-            'topic' => $request->getTopic(),
-            'fixed_hour_price' => $request->getFixedHourPrice()]);
+            'address' => $request->getAddress(),
+            'birthday' => $request->getBirthday(),
+            'about' => $request->getAbout(),
+            'phone' => $request->getPhone()
+        ]);
 
         return redirect()->route('mentors.index')
-            ->withSuccess('Mentoriaus duomenys buvo sėkmingai atnaujinti');
+            ->with('status', 'Mentoriaus duomenys buvo sėkmingai atnaujinti');
     }
 
     /**
@@ -215,7 +219,7 @@ class MentorsController extends Controller
         $mentor->delete();
 
         return redirect()->back()
-            ->withSuccess('Mentorius buvo sėkmingai pašalintas');
+            ->with('status', 'Mentorius buvo sėkmingai pašalintas');
     }
 
 
@@ -254,9 +258,9 @@ class MentorsController extends Controller
 
         if($wasChanged)
             return redirect()->back()
-                ->withSuccess('Slaptažodis buvo sėkmingai pakeistas');
+                ->with('status', 'Slaptažodis buvo sėkmingai pakeistas');
         else
-            return redirect()->back()->withErrors('Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
+            return redirect()->back()->with('status', 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
     }
     
 }

@@ -70,12 +70,12 @@ class RatingsController extends Controller
 
                 $this->ratingsRepository->create($data);
 
-                return redirect()->back()->withSuccess('Sėkmingai įvertinote mentorių');
+                return redirect()->back()->with('status', 'Sėkmingai įvertinote mentorių');
             }
 
-            return redirect()->back()->withErrors('Nepavyko įvertinti, Jūs jau esate įvertinęs šį mentorių');
+            return redirect()->back()->with('status', 'Nepavyko įvertinti, Jūs jau esate įvertinęs šį mentorių');
         }
 
-        return redirect()->back()->withErrors('Nepavyko įvertinti, jūs nesate studentas');
+        return redirect()->back()->with('status', 'Nepavyko įvertinti, jūs nesate studentas');
     }
 }

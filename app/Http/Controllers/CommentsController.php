@@ -54,12 +54,12 @@ class CommentsController extends Controller
 
                 $this->commentsRepository->create($data);
 
-                return redirect()->back()->withSuccess('Sėkmingai palikote atsiliepimą apie mentorių');
+                return redirect()->back()->with('status', 'Sėkmingai palikote atsiliepimą apie mentorių');
             }
 
-            return redirect()->back()->withErrors('Nepavyko pakomentuoti, Jūs jau esate pakomentavęs šį mentorių');
+            return redirect()->back()->with('status', 'Nepavyko pakomentuoti, Jūs jau esate pakomentavęs šį mentorių');
         }
 
-        return redirect()->back()->withErrors('Nepavyko pakomentuoti, jūs nesate studentas');
+        return redirect()->back()->with('status', 'Nepavyko pakomentuoti, jūs nesate studentas');
     }
 }

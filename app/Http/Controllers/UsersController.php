@@ -71,13 +71,21 @@ class UsersController extends Controller
         $data = [
             'email' => $request->getEmail(),
             'password' => bcrypt($request->getPassword()),
-            'name' => $request->getName(),
+            'first_name' => $request->getFirstName(),
+            'last_name' => $request->getLastName(),
+            'gender' => $request->getGender(),
+            'age' => $request->getAge(),
+            'city' => $request->getCity(),
+            'address' => $request->getAddress(),
+            'birthday' => $request->getBirthday(),
+            'role' => $request->getRole(),
+            'phone' => $request->getPhone(),
         ];
 
         $this->usersRepository->create($data);
 
         return redirect()->back()
-            ->withSuccess('Administratorius buvo sėkmingai sukurtas');
+            ->with('status', 'Administratorius buvo sėkmingai sukurtas');
     }
 
     /**
@@ -108,11 +116,19 @@ class UsersController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         $user->update([
-            'email' => $request->getEmail(),
-            'name' => $request->getName()]);
+            'first_name' => $request->getFirstName(),
+            'last_name' => $request->getLastName(),
+            'gender' => $request->getGender(),
+            'age' => $request->getAge(),
+            'city' => $request->getCity(),
+            'address' => $request->getAddress(),
+            'birthday' => $request->getBirthday(),
+            'role' => $request->getRole(),
+            'phone' => $request->getPhone(),
+        ]);
 
         return redirect()->route('users.index')
-            ->withSuccess('Administratoriaus duomenys buvo sėkmingai atnaujinti');
+            ->with('status', 'Administratoriaus duomenys buvo sėkmingai atnaujinti');
     }
 
     /**
@@ -125,7 +141,7 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->back()
-            ->withSuccess('Administratorius buvo sėkmingai pašalintas');
+            ->with('status', 'Administratorius buvo sėkmingai pašalintas');
     }
 
     /**
@@ -146,8 +162,8 @@ class UsersController extends Controller
 
         if($wasChanged)
             return redirect()->back()
-                ->withSuccess('Slaptažodis buvo sėkmingai pakeistas');
+                ->with('status', 'Slaptažodis buvo sėkmingai pakeistas');
         else
-            return redirect()->back()->withErrors('Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
+            return redirect()->back()->with('status', 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
     }
 }

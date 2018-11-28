@@ -24,9 +24,10 @@ class CreateMentorsTable extends Migration
             $table->string('gender');
             $table->integer('age');
             $table->string('city');
-            $table->string('topic');
-            $table->double('fixed_hour_price');
-            $table->double('rating')->nullable();
+            $table->string('address');
+            $table->date('birthday');
+            $table->string('about');
+            $table->string('phone');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -104,12 +104,17 @@ class StudentsController extends Controller
             'last_name' => $request->getLastName(),
             'gender' => $request->getGender(),
             'age' => $request->getAge(),
-            'city' => $request->getCity()
+            'city' => $request->getCity(),
+            'address' => $request->getAddress(),
+            'birthday' => $request->getBirthday(),
+            'education' => $request->getEducation(),
+            'phone' => $request->getPhone(),
+            
         ];
 
         $this->studentsRepository->create($data);
 
-        return redirect('/login')->withSuccess('Studentas buvo sėkmingai sukurtas');
+        return redirect('/login')->with('status', 'Studentas buvo sėkmingai sukurtas');
     }
 
     /**
@@ -155,11 +160,15 @@ class StudentsController extends Controller
             'last_name' => $request->getLastName(),
             'gender' => $request->getGender(),
             'age' => $request->getAge(),
-            'city' => $request->getCity()
+            'city' => $request->getCity(),
+            'address' => $request->getAddress(),
+            'birthday' => $request->getBirthday(),
+            'education' => $request->getEducation(),
+            'phone' => $request->getPhone(),
         ]);
 
         return redirect()->route('students.index')
-            ->withSuccess('Studento duomenys buvo sėkmingai atnaujinti');
+            ->with('status', 'Studento duomenys buvo sėkmingai atnaujinti');
     }
 
     /**
@@ -186,7 +195,7 @@ class StudentsController extends Controller
         $student->delete();
 
         return redirect()->back()
-            ->withSuccess('Studentas buvo sėkmingai pašalintas');
+            ->with('status', 'Studentas buvo sėkmingai pašalintas');
     }
 
     /**
@@ -226,9 +235,9 @@ class StudentsController extends Controller
 
         if($wasChanged)
             return redirect()->back()
-            ->withSuccess('Slaptažodis buvo sėkmingai pakeistas');
+            ->with('status', 'Slaptažodis buvo sėkmingai pakeistas');
         else
-            return redirect()->back()->withErrors('Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
+            return redirect()->back()->with('status', 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
     }
 
     public function touchMentors()

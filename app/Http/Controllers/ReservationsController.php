@@ -60,13 +60,13 @@ class ReservationsController extends Controller
 
                 $this->reservationsRepository->create($data);
             } else {
-                return redirect()->back()->withErrors('Nepavyko užsiregistruoti į mentoriaus užsiėmimus, Jūs jau esate užsiregistravę pas šį mentorių');
+                return redirect()->back()->with('status', 'Nepavyko užsiregistruoti į mentoriaus užsiėmimus, Jūs jau esate užsiregistravę pas šį mentorių');
             }
 
-            return redirect()->back()->withSuccess('Sėkmingai užsiregistravote į mentoriaus užsiėmimus');
+            return redirect()->back()->with('status', 'Sėkmingai užsiregistravote į mentoriaus užsiėmimus');
         }
 
-        return redirect()->back()->withErrors('Nepavyko užsiregistruoti į mentoriaus užsiėmimus, Jūs nesate studentas');
+        return redirect()->back()->with('status', 'Nepavyko užsiregistruoti į mentoriaus užsiėmimus, Jūs nesate studentas');
     }
 
     public function unstore(Mentor $mentor)
@@ -81,9 +81,9 @@ class ReservationsController extends Controller
         if($id != null && $doesHaveReservation != NULL){
             $doesHaveReservation->delete();
 
-            return redirect()->back()->withSuccess('Sėkmingai išsiregistravote iš mentoriaus užsiėmimų');
+            return redirect()->back()->with('status', 'Sėkmingai išsiregistravote iš mentoriaus užsiėmimų');
         }
 
-        return redirect()->back()->withErrors('Nepavyko išsiregistruoti iš mentoriaus užsiėmimų, jūs nebuvote prisiregistravęs');
+        return redirect()->back()->with('status', 'Nepavyko išsiregistruoti iš mentoriaus užsiėmimų, jūs nebuvote prisiregistravęs');
     }
 }
