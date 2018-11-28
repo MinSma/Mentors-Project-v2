@@ -27,7 +27,6 @@ class UserUpdateRequest extends FormRequest
             'first_name'            => 'required|max:255|regex:/[a-zA-Z]+/',
             'last_name'             => 'required|max:255|regex:/[a-zA-Z]+/',
             'gender'                => 'required',
-            'age'                   => 'required|integer|min:1',
             'city'                  => 'required|max:255|regex:/[a-zA-Z]+/',
             'address'               => 'required',
             'birthday'              => 'required',
@@ -76,14 +75,7 @@ class UserUpdateRequest extends FormRequest
     {
         return $this->input('gender');
     }
-    
-    /**
-     * @return array|string
-     */
-    public function getAge()
-    {
-        return $this->input('age');
-    }
+  
     
     /**
      * @return array|string

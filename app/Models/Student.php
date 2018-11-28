@@ -23,9 +23,11 @@ class Student extends Authenticatable
         'first_name',
         'last_name',
         'gender',
-        'age',
         'city',
-        'mentor_id'
+        'address',
+        'birthday',
+        'education',
+        'phone',
     ];
 
     /**

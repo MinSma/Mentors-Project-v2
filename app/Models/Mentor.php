@@ -23,11 +23,11 @@ class Mentor extends Authenticatable
         'first_name',
         'last_name',
         'gender',
-        'age',
         'city',
-        'topic',
-        'fixed_hour_price',
-        'rating'
+        'address',
+        'birthday',
+        'about',
+        'phone',
         ];
 
     /**
