@@ -2,9 +2,7 @@
 
 // Mentors
 Route::get('mentors/', 'MentorsController@index')->name('mentors.index')->middleware('auth');
-Route::get('mentors/search', 'MentorsController@search')->name('mentors.search');
 Route::get('mentors/students', 'MentorsController@students')->name('mentors.students')->middleware('auth:mentor');
-Route::get('mentors/found', 'MentorsController@found')->name('mentors.found');
 Route::get('mentors/dashboard', 'MentorsController@dashboard')->name('mentors.dashboard')->middleware('auth:mentor');
 Route::get('mentors/dashboard/change',
     'MentorsController@changePassword')->name('mentors.changePassword')->middleware('auth:mentor');
@@ -85,6 +83,8 @@ Route::get('/lessons/students-lessons', 'LessonsController@showForStudents')->na
 Route::get('/lessons/create', 'LessonsController@create')->name('lessons.create');
 Route::post('/lessons', 'LessonsController@store')->name('lessons.store');
 Route::delete('lessons/{lesson}/delete', 'LessonsController@destroy')->name('lessons.delete');
+Route::get('lessons/search', 'LessonsController@search')->name('lessons.search');
+Route::get('lessons/found', 'LessonsController@found')->name('lessons.found');
 
 
 // Appointments routing

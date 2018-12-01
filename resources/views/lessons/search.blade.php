@@ -4,12 +4,12 @@
 @endsection
 
 @section('content')
-    <form action="/mentors/found" method="GET" role="search">
+    <form action="{{route("lessons.found")}}" method="GET" role="search">
 
         <div class="form-group">
-            <label for="topic">Tema:</label>
+            <label for="subject">Tema:</label>
 
-            <select name="topic" id="topic" class="form-control">
+            <select name="subject" id="topic" class="form-control">
                 <option value="Matematika">Matematika</option>
                 <option value="Anglu kalba">Anglu kalba</option>
                 <option value="Informacines Technologijos">Informacines Technologijos</option>

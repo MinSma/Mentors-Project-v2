@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 
 namespace App\Services;
+use App\Repositories\LessonsRepository;
 use Illuminate\Http\Request;
 use App\Repositories\MentorsRepository;
 
@@ -12,17 +13,17 @@ use App\Repositories\MentorsRepository;
 class SearchService
 {
     /**
-     * @var MentorsRepository
+     * @var LessonsRepository
      */
-    private $mentorsRepository;
+    private $lessonsRepository;
 
     /**
      * SearchService constructor.
-     * @param MentorsRepository $mentorsRepository
+     * @param LessonsRepository $lessonsRepository
      */
-    public function __construct(MentorsRepository $mentorsRepository)
+    public function __construct(LessonsRepository $lessonsRepository)
     {
-        $this->mentorsRepository = $mentorsRepository;
+        $this->lessonsRepository = $lessonsRepository;
     }
 
     /**
@@ -30,15 +31,15 @@ class SearchService
      * @param Request $request
      * @return static
      */
-    public function getMentors(Request $request)
+    public function getLessons(Request $request)
     {
-        $topic = $request->get('topic');
+        $topic = $request->get('subject');
 
         if($topic == 'all') {
-            return $this->mentorsRepository->model()::paginate(10);
+            return $this->lessonsRepository->model()::paginate(10);
         }
         else {
-                return $this->mentorsRepository->model()::where('topic', 'like', $topic)->paginate(10);
+                return $this->lessonsRepository->model()::where('subject', 'like', $topic)->paginate(10);
         }
     }
 }

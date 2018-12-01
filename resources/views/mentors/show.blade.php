@@ -1,5 +1,5 @@
     @include('guestPagesLayouts.homeHeaderIncludes')
-    @include('layouts.Navpanel')
+    @include('layouts.NavPanel')
     @include('guestPagesLayouts.homeHeaderSection')
 
 <div class="container lower">

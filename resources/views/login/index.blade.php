@@ -1,5 +1,5 @@
 @include('guestPagesLayouts.homeHeaderIncludes')
-@include('layouts.Navpanel')
+@include('layouts.NavPanel')
 @include('guestPagesLayouts.homeHeaderSection')
 <div class="container lower">
     <div class="row centered-form">
@@ -14,7 +14,7 @@
 
                         <div class="form-group">
                             <label for="email">Elektroninio pašto adresas:</label>
-                            <input type="email" class="form-control" id="email"  name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
 
                         <div class="form-group">
@@ -24,17 +24,18 @@
 
                         <div class="row">
                             <div class="col-xs-6 col-md-4">
-                                    <button type="submit" class="btn btn-small btn-info orange-bg">Prisijungti</button>
+                                <button type="submit" class="btn btn-small btn-info orange-bg">Prisijungti</button>
                             </div>
                             <div class="col-xs-6 col-md-8">
-                                <a class="btn btn-small btn-info orange-bg" href="{{ route('mentors.create') }}">Registruoti Mentorių</a>
-                                <a class="btn btn-small btn-info orange-bg" href="{{ route('students.create') }}">Registruoti Studentą</a>
-                                </div>
+                                <a class="btn btn-small btn-info orange-bg" href="{{ route('mentors.create') }}">Registruoti
+                                    Mentorių</a>
+                                <a class="btn btn-small btn-info orange-bg" href="{{ route('students.create') }}">Registruoti
+                                    Studentą</a>
+                            </div>
                         </div>
                     </form>
-
+                </div>
             </div>
         </div>
     </div>
 </div>
-

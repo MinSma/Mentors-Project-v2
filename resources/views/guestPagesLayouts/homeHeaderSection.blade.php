@@ -3,11 +3,11 @@
         <img style="max-width:40%; margin-top: -100px; opacity: 1" src="{{ asset('images/logo_black.png') }}">
         <p>Mokytis daug lengviau, kai šalia patikimas mokytojas!</p>
 
-    <form action="/mentors/found" method="GET" role="search">
+    <form action="{{route("lessons.found")}}" method="GET" role="search">
         <div class="form-group">
-            <label for="topic">Pasirinkti temą</label>
+            <label for="subject">Pasirinkti temą</label>
 
-            <select name="topic" id="topic" class="form-control">
+            <select name="subject" id="topic" class="form-control">
                 <option value="all">Visus</option>
                 <option value="Matematika">Matematika</option>
                 <option value="Anglu kalba">Anglų Kalba</option>

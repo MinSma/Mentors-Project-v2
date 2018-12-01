@@ -1,5 +1,5 @@
 @include('guestPagesLayouts.homeHeaderIncludes')
-@include('layouts.Navpanel')
+@include('layouts.NavPanel')
 @include('guestPagesLayouts.homeHeaderSection')
 <h1 class="mb-2 text-center">Pervesti pinigus</h1>
 
