@@ -11,7 +11,6 @@ php:
     build: ./config/php
     ports:
         - "9000:9000"
-    tty: true
     volumes:
       - ./:/var/www/kliusasproject
     links:
