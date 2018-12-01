@@ -29,11 +29,6 @@ class MentorsController extends Controller
     private $mentorsRepository;
 
     /**
-     * @var SearchService
-     */
-    private $searchService;
-
-    /**
      * @var PasswordChangeService
      */
     private $passwordChangeService;
@@ -62,12 +57,11 @@ class MentorsController extends Controller
      * @param StudentsRepository $studentsRepository
      * @param CommentsRepository $commentsRepository
      */
-    public function __construct(MentorsRepository $mentorsRepository, SearchService $searchService,
+    public function __construct(MentorsRepository $mentorsRepository,
                                 PasswordChangeService $passwordChangeService, ReservationsRepository $reservationsRepository,
                                 StudentsRepository $studentsRepository, CommentsRepository $commentsRepository)
     {
         $this->mentorsRepository = $mentorsRepository;
-        $this->searchService = $searchService;
         $this->passwordChangeService = $passwordChangeService;
         $this->reservationsRepository = $reservationsRepository;
         $this->studentsRepository = $studentsRepository;
@@ -218,24 +212,6 @@ class MentorsController extends Controller
 
         return redirect()->back()
             ->with('status', 'Mentorius buvo sėkmingai pašalintas');
-    }
-
-
-    /**
-     * @return View
-     */
-    public function search() : View {
-        return view('mentors.search');
-    }
-
-    /**
-     * @param Request $request
-     * @return View
-     */
-    public function found(Request $request) : View {
-        $mentors = $this->searchService->getMentors($request);
-
-        return view('mentors.found', ['mentors' => $mentors]);
     }
 
     /**

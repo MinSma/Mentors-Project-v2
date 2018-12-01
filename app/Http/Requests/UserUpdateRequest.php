@@ -24,14 +24,14 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'            => 'required|max:255|regex:/[a-zA-Z]+/',
-            'last_name'             => 'required|max:255|regex:/[a-zA-Z]+/',
-            'gender'                => 'required',
-            'city'                  => 'required|max:255|regex:/[a-zA-Z]+/',
-            'address'               => 'required',
-            'birthday'              => 'required',
-            'about'                 => 'required',
-            'phone'                 => 'required',
+//            'first_name'            => 'required|max:255|regex:/[a-zA-Z]+/',
+//            'last_name'             => 'required|max:255|regex:/[a-zA-Z]+/',
+//            'gender'                => 'required',
+//            'city'                  => 'required|max:255|regex:/[a-zA-Z]+/',
+//            'address'               => 'required',
+//            'birthday'              => 'required',
+//            'about'                 => 'required',
+//            'phone'                 => 'required',
         ];
     }
     

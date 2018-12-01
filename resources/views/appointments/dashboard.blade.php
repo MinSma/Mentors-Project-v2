@@ -9,7 +9,7 @@
 <br/>
 <div class="container lower">
     <div class="row">
-        {{--@foreach($lessons as $key => $value)--}}
+        {{--@foreach($appointments as $key => $value)--}}
             {{--<div class="col-xs-12 col-sm-12 col-md-6">--}}
                 {{--<div class="well well-sm">--}}
                     {{--<div class="row">--}}
@@ -29,9 +29,9 @@
                             {{--<div class="flex-between">--}}
                                 {{--<div class="btn-group">--}}
 
-                                    {{--{{ Form::open(array('url' => 'lessons/' . $value->id . '/delete', 'class' => 'pull-left')) }}--}}
+                                    {{--{{ Form::open(array('url' => 'appointments/' . $value->id . '/delete', 'class' => 'pull-left')) }}--}}
                                     {{--{{ Form::hidden('_method', 'DELETE') }}--}}
-                                    {{--{{ Form::submit('Ištrinti Pamoką', array('class' => 'btn btn-small btn-info orange-bg')) }}--}}
+                                    {{--{{ Form::submit('Ištrinti Susitikimą', array('class' => 'btn btn-small btn-info orange-bg')) }}--}}
                                     {{--{{ Form::close() }}--}}
 
                                 {{--</div>--}}

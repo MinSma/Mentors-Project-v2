@@ -7,15 +7,25 @@ use App\Http\Requests\LessonCreateRequest;
 use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Repositories\LessonsRepository;
+use App\Services\SearchService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class LessonsController extends Controller
 {
     public $lessonsRepository;
-    
-    public function __construct(LessonsRepository $lessonsRepository)
+
+
+    /**
+     * @var SearchService
+     */
+    private $searchService;
+
+    public function __construct(LessonsRepository $lessonsRepository, SearchService $searchService)
     {
         $this->lessonsRepository = $lessonsRepository;
+        $this->searchService = $searchService;
     }
     
     public function showLessons()
@@ -61,9 +71,25 @@ class LessonsController extends Controller
     
     public function destroy(Lesson $lesson)
     {
-        
         $lesson->delete();
         
         return redirect()->back()->with('status', 'Pamoka buvo sėkmingai pašalintas');
+    }
+
+    /**
+     * @return View
+     */
+    public function search() : View {
+        return view('lessons.search');
+    }
+
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function found(Request $request) : View {
+        $lessons = $this->searchService->getLessons($request);
+
+        return view('lessons.found', ['lessons' => $lessons]);
     }
 }
