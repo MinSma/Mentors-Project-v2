@@ -17,13 +17,15 @@ Route::get('mentors/search', 'MentorsController@search')->name('mentors.search')
 Route::get('mentors/students', 'MentorsController@students')->name('mentors.students')->middleware('auth:mentor');
 Route::get('mentors/found', 'MentorsController@found')->name('mentors.found');
 Route::get('mentors/dashboard', 'MentorsController@dashboard')->name('mentors.dashboard')->middleware('auth:mentor');
-Route::get('mentors/dashboard/change', 'MentorsController@changePassword')->name('mentors.changePassword')->middleware('auth:mentor');
-Route::post('mentors/dashboard/change', 'MentorsController@storePassword')->name('mentors.storePassword')->middleware('auth:mentor');
+Route::get('mentors/dashboard/change',
+    'MentorsController@changePassword')->name('mentors.changePassword')->middleware('auth:mentor');
+Route::post('mentors/dashboard/change',
+    'MentorsController@storePassword')->name('mentors.storePassword')->middleware('auth:mentor');
 Route::get('mentors/create', 'MentorsController@create')->name('mentors.create');
 Route::get('mentors/{mentor}/', 'MentorsController@show')->name('mentors.show');
-Route::group(['middleware' => ['auth' || 'auth:mentor']], function(){
-	Route::get('mentors/{mentor}/edit', 'MentorsController@edit')->name('mentors.edit');
-	Route::get('mentors/{mentor}/block', 'MentorsController@block')->name('mentors.block');
+Route::group(['middleware' => ['auth' || 'auth:mentor']], function () {
+    Route::get('mentors/{mentor}/edit', 'MentorsController@edit')->name('mentors.edit');
+    Route::get('mentors/{mentor}/block', 'MentorsController@block')->name('mentors.block');
 });
 Route::post('mentors/', 'MentorsController@store')->name('mentors.store');
 Route::put('mentors/{mentor}/update', 'MentorsController@update')->name('mentors.update');
@@ -32,15 +34,19 @@ Route::delete('mentors/{mentor}/delete', 'MentorsController@destroy')->name('men
 // Students
 Route::get('students/', 'StudentsController@index')->name('students.index')->middleware('auth');
 Route::get('students/mentors', 'StudentsController@mentors')->name('students.mentors')->middleware('auth:student');
-Route::get('students/dashboard', 'StudentsController@dashboard')->name('students.dashboard')->middleware('auth:student');
-Route::get('students/dashboard/change', 'StudentsController@changePassword')->name('students.changePassword')->middleware('auth:student');
-Route::post('students/dashboard/change', 'StudentsController@storePassword')->name('students.storePassword')->middleware('auth:student');
+Route::get('students/dashboard',
+    'StudentsController@dashboard')->name('students.dashboard')->middleware('auth:student');
+Route::get('students/dashboard/change',
+    'StudentsController@changePassword')->name('students.changePassword')->middleware('auth:student');
+Route::post('students/dashboard/change',
+    'StudentsController@storePassword')->name('students.storePassword')->middleware('auth:student');
 Route::get('students/create', 'StudentsController@create')->name('students.create');
-Route::get('students/touch-mentors', 'StudentsController@touchMentors')->name('students.touchMentors')->middleware('auth:student');
+Route::get('students/touch-mentors',
+    'StudentsController@touchMentors')->name('students.touchMentors')->middleware('auth:student');
 Route::get('students/{student}/', 'StudentsController@show')->name('students.show');
-Route::group(['middleware' => ['auth' || 'auth:student']], function(){
-	Route::get('students/{student}/edit', 'StudentsController@edit')->name('students.edit');
-	Route::get('students/{student}/block', 'StudentsController@block')->name('students.block');
+Route::group(['middleware' => ['auth' || 'auth:student']], function () {
+    Route::get('students/{student}/edit', 'StudentsController@edit')->name('students.edit');
+    Route::get('students/{student}/block', 'StudentsController@block')->name('students.block');
 });
 Route::post('students/', 'StudentsController@store')->name('students.store');
 Route::put('students/{student}/update', 'StudentsController@update')->name('students.update');
@@ -49,7 +55,8 @@ Route::delete('students/{student}/delete', 'StudentsController@destroy')->name('
 // Users
 Route::get('users/', 'UsersController@index')->name('users.index')->middleware('auth');
 Route::get('users/dashboard', 'UsersController@dashboard')->name('users.dashboard')->middleware('auth');
-Route::get('users/dashboard/change', 'UsersController@changePassword')->name('users.changePassword')->middleware('auth');
+Route::get('users/dashboard/change',
+    'UsersController@changePassword')->name('users.changePassword')->middleware('auth');
 Route::post('users/dashboard/change', 'UsersController@storePassword')->name('users.storePassword')->middleware('auth');
 Route::get('users/create', 'UsersController@create')->name('users.create');
 Route::get('users/{user}/', 'UsersController@show')->name('users.show');
@@ -69,7 +76,7 @@ Route::get('/', 'AppearanceController@home')->name('guestPages.home');
 
 // Conctact up routing
 Route::get('/contactus', 'ContactsController@show');
-Route::post('/contactus',  'ContactsController@mailToAdmin');
+Route::post('/contactus', 'ContactsController@mailToAdmin');
 
 // Comments routing
 Route::post('mentors/{mentor}/comment', 'CommentsController@store')->name('comments.store');
