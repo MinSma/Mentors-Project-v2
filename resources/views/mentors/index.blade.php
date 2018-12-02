@@ -40,8 +40,13 @@
                             <div class="btn-group">
                                 <div class="lower-button">
                                     @if (Auth::guard('web')->check())
-                                        <a class="btn btn-small btn-info orange-bg"
-                                           href="{{ URL::to('mentors/' . $value->id . '/block') }}">Blokuoti</a>
+                                        @if ($value->blockings_id == NULL)
+                                            <a class="btn btn-small btn-info orange-bg"
+                                               href="{{ URL::to('mentors/' . $value->id . '/block') }}">Blokuoti</a>
+                                        @else
+                                            <a class="btn btn-small btn-info orange-bg"
+                                               href="{{ URL::to('mentors/' . $value->id . '/block') }}">Keisti blokavimą</a>
+                                        @endif
                                     @endif
                                     <a class="btn btn-small btn-info orange-bg"
                                        href="{{ URL::to('mentors/' . $value->id . '/edit') }}">Keisti Mentoriaus

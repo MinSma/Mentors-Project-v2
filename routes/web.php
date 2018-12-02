@@ -2,6 +2,7 @@
 
 // Mentors
 Route::get('mentors/', 'MentorsController@index')->name('mentors.index')->middleware('auth');
+Route::get('mentors/{mentor}/block', 'MentorsController@block')->name('mentors.block')->middleware('auth');
 Route::get('mentors/students', 'MentorsController@students')->name('mentors.students')->middleware('auth:mentor');
 Route::get('mentors/dashboard', 'MentorsController@dashboard')->name('mentors.dashboard')->middleware('auth:mentor');
 Route::get('mentors/dashboard/change',
@@ -15,11 +16,13 @@ Route::group(['middleware' => ['auth' || 'auth:mentor']], function () {
     Route::get('mentors/{mentor}/block', 'MentorsController@block')->name('mentors.block');
 });
 Route::post('mentors/', 'MentorsController@store')->name('mentors.store');
+Route::post('mentors/{mentor}/block', 'MentorsController@blockStore')->name('mentors.blockStore')->middleware('auth');
 Route::put('mentors/{mentor}/update', 'MentorsController@update')->name('mentors.update');
 Route::delete('mentors/{mentor}/delete', 'MentorsController@destroy')->name('mentors.delete')->middleware('auth');
 
 // Students
 Route::get('students/', 'StudentsController@index')->name('students.index')->middleware('auth');
+Route::get('students/{student}/block', 'StudentsController@block')->name('students.block')->middleware('auth');
 Route::get('students/mentors', 'StudentsController@mentors')->name('students.mentors')->middleware('auth:student');
 Route::get('students/dashboard',
     'StudentsController@dashboard')->name('students.dashboard')->middleware('auth:student');
@@ -36,6 +39,7 @@ Route::group(['middleware' => ['auth' || 'auth:student']], function () {
     Route::get('students/{student}/block', 'StudentsController@block')->name('students.block');
 });
 Route::post('students/', 'StudentsController@store')->name('students.store');
+Route::post('students/{student}/block', 'StudentsController@blockStore')->name('students.blockStore')->middleware('auth');
 Route::put('students/{student}/update', 'StudentsController@update')->name('students.update');
 Route::delete('students/{student}/delete', 'StudentsController@destroy')->name('students.delete')->middleware('auth');
 
@@ -95,7 +99,3 @@ Route::delete('appointments/{appointment}/delete', 'AppointmentsController@destr
 
 
 Route::get('/payments/pay', 'BankAccountController@showPaymentForm')->name('payments.paymentForm');
-
-
-
-

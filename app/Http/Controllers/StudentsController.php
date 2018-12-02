@@ -3,7 +3,9 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlockUserRequest;
 use App\Http\Requests\StudentUpdateRequest;
+use App\Repositories\BlockingRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\MentorsRepository;
 use App\Repositories\ReservationsRepository;
@@ -47,22 +49,29 @@ class StudentsController extends Controller
     private $commentsRepository;
 
     /**
+     * @var BlockingsRepository
+     */
+    private $blockingsRepository;
+
+    /**
      * StudentsController constructor.
      * @param StudentsRepository $studentsRepository
      * @param PasswordChangeService $passwordChangeService
      * @param ReservationsRepository $reservationsRepository
      * @param MentorsRepository $mentorsRepository
      * @param CommentsRepository $commentsRepository
+     * @param BlockingsRepository $blockingsRepository
      */
     public function __construct(StudentsRepository $studentsRepository, PasswordChangeService $passwordChangeService,
                                 ReservationsRepository $reservationsRepository, MentorsRepository $mentorsRepository,
-                                CommentsRepository $commentsRepository)
+                                CommentsRepository $commentsRepository, BlockingRepository $blockingsRepository)
     {
         $this->studentsRepository = $studentsRepository;
         $this->passwordChangeService = $passwordChangeService;
         $this->reservationsRepository = $reservationsRepository;
         $this->mentorsRepository = $mentorsRepository;
         $this->commentsRepository = $commentsRepository;
+        $this->blockingsRepository = $blockingsRepository;
     }
 
     /**
@@ -238,8 +247,40 @@ class StudentsController extends Controller
             return redirect()->back()->with('status', 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
     }
 
-    public function touchMentors()
+    /**
+     * @return View
+     */
+    public function touchMentors() : View
     {
         return view('students.touch');
+    }
+
+    /**
+     * @param BlockUserRequest $request
+     * @param Student $student
+     */
+    public function blockStore(BlockUserRequest $request, Student $student) {
+        $data = [
+            'start_date' => $request->getStartDate(),
+            'end_date' => $request->getEndDate(),
+            'reason' => $request->getReason()
+        ];
+
+        if($student['blockings_id'] == NULL)
+        {
+            $created = $this->blockingsRepository->create($data);
+
+            $student->update([
+                'blockings_id' => $created['id']
+            ]);
+        }
+        else
+        {
+            $blocking = $this->blockingsRepository->model()::find($student['blockings_id']);
+            $blocking->update($data);
+        }
+
+        return redirect()->back()
+            ->with('status', 'Studentas buvo sėkmingai užblokuotas');
     }
 }

@@ -28,6 +28,7 @@ class Student extends Authenticatable
         'birthday',
         'education',
         'phone',
+        'blockings_id'
     ];
 
     /**
@@ -42,5 +43,12 @@ class Student extends Authenticatable
      */
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function blocking() {
+        return $this->hasOne(Blocking::class);
     }
 }

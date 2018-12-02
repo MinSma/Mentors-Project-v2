@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Repositories\BlockingRepository;
 use App\Services\LoginService;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -18,12 +21,18 @@ class LoginController extends Controller
     private $loginService;
 
     /**
+     * @var BlockingRepository
+     */
+    private $blockingRepository;
+
+    /**
      * LoginController constructor.
      * @param LoginService $loginService
      */
-    public function __construct(LoginService $loginService)
+    public function __construct(LoginService $loginService, BlockingRepository $blockingRepository)
     {
         $this->loginService = $loginService;
+        $this->blockingRepository = $blockingRepository;
     }
 
     /**
@@ -58,13 +67,49 @@ class LoginController extends Controller
     public function connect(LoginRequest $request)
     {
         if ($this->loginService->tryStudent($request))
+        {
+            $isBlocked = Auth::guard('student')->user()['blockings_id'];
+
+            if($isBlocked != NULL)
+            {
+                $blockingEndDate = $this->blockingRepository->model()
+                    ::where('id', $isBlocked)->get()[0]['end_date'];
+                $currentTime = Carbon::now();
+
+                if($blockingEndDate > $currentTime)
+                {
+                    auth('student')->logout();
+                    return view('login.index')->with('status', 'Jūs esate užblokuotas iki ' . $blockingEndDate);
+                }
+            }
+
             return redirect()->route('students.dashboard')->with('status', 'Sėkmingai prisijungėte');
+        }
 
         else if ($this->loginService->tryMentor($request))
+        {
+            $isBlocked = Auth::guard('mentor')->user()['blockings_id'];
+
+            if($isBlocked != NULL)
+            {
+                $blockingEndDate = $this->blockingRepository->model()
+                    ::where('id', $isBlocked)->get()[0]['end_date'];
+                $currentTime = Carbon::now();
+
+                if($blockingEndDate > $currentTime)
+                {
+                    auth('mentor')->logout();
+                    return view('login.index')->with('status', 'Jūs esate užblokuotas iki ' . $blockingEndDate);
+                }
+            }
+
             return redirect()->route('mentors.dashboard')->with('status', 'Sėkmingai prisijungėte');
+        }
 
         else if ($this->loginService->tryUser($request))
+        {
             return redirect()->route('users.dashboard')->with('status', 'Sėkmingai prisijungėte');
+        }
 
         else return redirect()->back()->with('status', 'Prisijungimas nepavyko, įvesti blogi prisijungimo duomenys');
     }

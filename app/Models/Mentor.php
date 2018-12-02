@@ -28,6 +28,7 @@ class Mentor extends Authenticatable
         'birthday',
         'about',
         'phone',
+        'blockings_id'
         ];
 
     /**
@@ -43,5 +44,12 @@ class Mentor extends Authenticatable
      */
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function blocking() {
+        return $this->hasOne(Blocking::class);
     }
 }

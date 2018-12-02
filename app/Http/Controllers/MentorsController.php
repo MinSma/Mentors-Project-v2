@@ -3,9 +3,11 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlockUserRequest;
 use App\Http\Requests\MentorCreateRequest;
 use App\Http\Requests\MentorUpdateRequest;
 use App\Http\Requests\PasswordChangeRequest;
+use App\Repositories\BlockingRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\ReservationsRepository;
 use App\Repositories\StudentsRepository;
@@ -49,6 +51,11 @@ class MentorsController extends Controller
     private $commentsRepository;
 
     /**
+     * @var BlockingsRepository
+     */
+    private $blockingsRepository;
+
+    /**
      * MentorsController constructor.
      * @param MentorsRepository $mentorsRepository
      * @param SearchService $searchService
@@ -59,13 +66,15 @@ class MentorsController extends Controller
      */
     public function __construct(MentorsRepository $mentorsRepository,
                                 PasswordChangeService $passwordChangeService, ReservationsRepository $reservationsRepository,
-                                StudentsRepository $studentsRepository, CommentsRepository $commentsRepository)
+                                StudentsRepository $studentsRepository, CommentsRepository $commentsRepository,
+                                BlockingRepository $blockingsRepository)
     {
         $this->mentorsRepository = $mentorsRepository;
         $this->passwordChangeService = $passwordChangeService;
         $this->reservationsRepository = $reservationsRepository;
         $this->studentsRepository = $studentsRepository;
         $this->commentsRepository = $commentsRepository;
+        $this->blockingsRepository = $blockingsRepository;
     }
 
     /**
@@ -236,5 +245,34 @@ class MentorsController extends Controller
         else
             return redirect()->back()->with('status', 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
     }
-    
+
+    /**
+     * @param BlockUserRequest $request
+     * @param Mentor $mentor
+     */
+    public function blockStore(BlockUserRequest $request, Mentor $mentor)
+    {
+        $data = [
+            'start_date' => $request->getStartDate(),
+            'end_date' => $request->getEndDate(),
+            'reason' => $request->getReason()
+        ];
+
+        if($mentor['blockings_id'] == NULL)
+        {
+            $created = $this->blockingsRepository->create($data);
+
+            $mentor->update([
+                'blockings_id' => $created['id']
+            ]);
+        }
+        else
+        {
+            $blocking = $this->blockingsRepository->model()::find($mentor['blockings_id']);
+            $blocking->update($data);
+        }
+
+        return redirect()->back()
+            ->with('status', 'Mentorius buvo sėkmingai užblokuotas');
+    }
 }

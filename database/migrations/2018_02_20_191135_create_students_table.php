@@ -27,6 +27,8 @@ class CreateStudentsTable extends Migration
             $table->date('birthday');
             $table->string('education');
             $table->string('phone');
+            $table->integer('blockings_id')->unsigned()->nullable();
+            $table->foreign('blockings_id')->references('id')->on('blockings');
             $table->rememberToken();
             $table->timestamps();
         });
