@@ -1,11 +1,11 @@
-@section('title', 'Mentoriai')
+@section('title', 'Užsiėmimai')
 @include('guestPagesLayouts.homeHeaderIncludes')
 
 @include('layouts.NavPanel')
 @include('guestPagesLayouts.homeHeaderSection')
 
 
-<h1 class="mb-2 text-center">Pamokos</h1>
+<h1 class="mb-2 text-center">Užsiėmimai</h1>
 <br/>
 <div class="container lower">
     <div class="row">

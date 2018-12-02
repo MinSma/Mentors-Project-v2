@@ -3,60 +3,66 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AppointmentCreateRequest;
+use App\Models\Appointment;
 use App\Models\Lesson;
 use App\Repositories\AppointmentsRepository;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\LessonsRepository;
+use Illuminate\Http\Request;
 
 class AppointmentsController extends Controller
 {
-    public $appointmentsRepository;
+    private $appointmentsRepository;
+    private $lessonsRepository;
     
-    public function __construct(AppointmentsRepository $appointmentsRepository)
+    public function __construct(AppointmentsRepository $appointmentsRepository, LessonsRepository $lessonsRepository)
     {
         $this->appointmentsRepository = $appointmentsRepository;
+        $this->lessonsRepository = $lessonsRepository;
     }
     
     public function show()
     {
         //$id = Auth::guard('mentor')->user()['id'];
-    
+        
         //$appointments = $this->appointmentsRepository->model()::where('mentor_id', $id)->where('lesson_id', $lesson['id'])->get();
         
-        return view('appointments.dashboard'
-           // ['appointments' => $appointments]
+        return view('appointments.dashboard'// ['appointments' => $appointments]
         );
     }
     
-    public function create()
+    public function create(Lesson $lesson)
     {
-        return view('appointments.create');
+        return view('appointments.create', ['lesson' => $lesson]);
     }
     
-    public function store(LessonCreateRequest $request)
+    public function store(AppointmentCreateRequest $request)
     {
-        $id = Auth::guard('mentor')->user()['id'];
-        
-        if($id != null) {
             $data = [
-                'mentor_id'     => $id,
-                'level'         => $request->getLevel(),
-                'subject'       => $request->getSubject(),
-                'description'   => $request->getDescription(),
-                'qualification' => $request->getQualification(),
+                'date'              => $request->getDate(),
+                'time'              => $request->getTime(),
+                'duration'          => $request->getDuration(),
+                'price'             => $request->getPrice(),
+                'type'              => $request->getType(),
+                'resources'         => $request->getResources(),
+                'place'             => $request->getPlace(),
+                'additional_cost'   => $request->getAdditionalCost(),
+                'max_distances'     => $request->getMaxDistances(),
+                'language'          => $request->getLanguage(),
+                'additional_info'   => $request->getAdditionalInfo(),
+                'lesson_id'         => $request->getLessonId(),
+                'state'             => 'free'
             ];
             
-            $this->lessonsRepository->create($data);
+            $this->appointmentsRepository->create($data);
             
-            return redirect('/login')->with('status', 'Pamoka buvo sėkmingai sukurta');
-        }
-        return redirect()->back()->with('status', 'Nepavyko, jūs nesate mentorius');
+        return redirect()->back()->with('status', 'Užsiėmimas sukurtas');
     }
     
-    public function destroy(Lesson $lesson)
+    public function destroy(Appointment $appointment)
     {
+        $appointment->delete();
         
-        $lesson->delete();
-        
-        return redirect()->back()->with('status', 'Pamoka buvo sėkmingai pašalintas');
+        return redirect()->back()->with('status', 'Užsiėmimas buvo sėkmingai pašalintas');
     }
 }

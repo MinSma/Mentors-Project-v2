@@ -7,6 +7,7 @@ use App\Http\Requests\LessonCreateRequest;
 use App\Models\Lesson;
 use App\Models\Mentor;
 use App\Repositories\LessonsRepository;
+use App\Repositories\MentorsRepository;
 use App\Services\SearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,8 @@ use Illuminate\View\View;
 
 class LessonsController extends Controller
 {
-    public $lessonsRepository;
+    private $lessonsRepository;
+    private $mentorsRepository;
 
 
     /**
@@ -22,9 +24,10 @@ class LessonsController extends Controller
      */
     private $searchService;
 
-    public function __construct(LessonsRepository $lessonsRepository, SearchService $searchService)
+    public function __construct(LessonsRepository $lessonsRepository, SearchService $searchService, MentorsRepository $mentorsRepository)
     {
         $this->lessonsRepository = $lessonsRepository;
+        $this->mentorsRepository = $mentorsRepository;
         $this->searchService = $searchService;
     }
     
@@ -89,7 +92,12 @@ class LessonsController extends Controller
      */
     public function found(Request $request) : View {
         $lessons = $this->searchService->getLessons($request);
-
-        return view('lessons.found', ['lessons' => $lessons]);
+        $mentors = [];
+        foreach($lessons as $lesson)
+        {
+            array_push($mentors, $this->mentorsRepository->all()->where('id', $lesson->mentor_id));
+        }
+        
+        return view('lessons.found', ['lessons' => $mentors]);
     }
 }

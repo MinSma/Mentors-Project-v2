@@ -93,7 +93,7 @@ Route::get('lessons/found', 'LessonsController@found')->name('lessons.found');
 
 // Appointments routing
 Route::get('/appointments/dashboard', 'AppointmentsController@show')->name('appointments.dashboard');
-Route::get('/appointments/create', 'AppointmentsController@create')->name('appointments.create');
+Route::get('/appointments/create/{lesson}', 'AppointmentsController@create')->name('appointments.create');
 Route::post('/appointments', 'AppointmentsController@store')->name('appointments.store');
 Route::delete('appointments/{appointment}/delete', 'AppointmentsController@destroy')->name('appointments.delete');
 

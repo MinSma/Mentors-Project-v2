@@ -53,8 +53,7 @@
 
                         <div class="form-group">
                             <label for="resources">Medžiaga:</label>
-                            <input type="checkbox" class="form-control" id="resources"  name="resources" value="{{ old('resources') }}" required>
-
+                            <input type="checkbox" class="form-control" id="resources"  name="resources" value="1" required>
                         </div>
 
                         <div class="form-group">
@@ -80,6 +79,12 @@
                         <div class="form-group">
                             <label for="additional_info">Papildoma info</label>
                             <input type="text" class="form-control" id="additional_info"  name="additional_info" value="{{ old('additional_info') }}" required>
+                        </div>
+
+                        <input type="hidden" name="lesson_id" id="lesson_id" value="{{$lesson->id}}" class="form-control">
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-small btn-info orange-bg">Sukurti</button>
                         </div>
 
                     </form>

@@ -18,6 +18,7 @@ class Appointment extends Model
         'max_distances',
         'state',
         'language',
+        'lesson_id',
         'additional_info',
     ];
 }

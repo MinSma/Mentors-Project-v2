@@ -39,7 +39,7 @@ class SearchService
             return $this->lessonsRepository->model()::paginate(10);
         }
         else {
-                return $this->lessonsRepository->model()::where('subject', 'like', $topic)->paginate(10);
+            return $this->lessonsRepository->model()::where('subject', 'like', $topic)->paginate(10);
         }
     }
 }
