@@ -32,14 +32,17 @@
                                 <br/>
                             </p>
                             <div class="btn-group">
+                                <br/>
+                                <i class="glyphicon glyphicon-globe"></i>{{ $value->city }}
+                                <br/>
                                 <div class="lower-button">
                                     @if (Auth::guard('web')->check())
                                         @if ($value->blockings_id == NULL)
                                             <a class="btn btn-small btn-info orange-bg"
-                                               href="{{ URL::to('mentors/' . $value->id . '/block') }}">Blokuoti</a>
+                                               href="{{ URL::to('students/' . $value->id . '/block') }}">Blokuoti</a>
                                         @else
                                             <a class="btn btn-small btn-info orange-bg"
-                                               href="{{ URL::to('mentors/' . $value->id . '/block') }}">Keisti blokavimą</a>
+                                               href="{{ URL::to('students/' . $value->id . '/block') }}">Keisti blokavimą</a>
                                         @endif
                                     @endif
                                     <a class="btn btn-small btn-info orange-bg"
