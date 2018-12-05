@@ -9,46 +9,42 @@
 <br/>
 <div class="container lower">
     <div class="row">
-        {{--@foreach($lessons as $key => $value)--}}
-            {{--<div class="col-xs-12 col-sm-12 col-md-6">--}}
-                {{--<div class="well well-sm">--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-xs-12 col-sm-12 col-md-12">--}}
-                            {{--<p>--}}
-                                {{--<i class="glyphicon glyphicon-user"></i>ID: {{ $value->id }}--}}
-                                {{--<br/>--}}
-                                {{--<i class="glyphicon glyphicon-envelope"></i>Lygis: {{ $value->level }}--}}
-                                {{--<br/>--}}
-                                {{--<i class="glyphicon glyphicon-heart"></i>Mokymo sritis: {{ $value->subject }}--}}
-                                {{--<br/>--}}
-                                {{--<i class="glyphicon glyphicon-eye-open"></i>Aprašymas: {{ $value->description }}--}}
-                                {{--<br/>--}}
-                                {{--<i class="glyphicon glyphicon-globe"></i>Kvalifikacija: {{ $value->qualification }}--}}
-                                {{--<br/>--}}
-                            {{--</p>--}}
-                            {{--<div class="flex-between">--}}
-                                {{--<div class="btn-group">--}}
+        @foreach($reservations as $key => $value)
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <p>
+                                <i class="glyphicon glyphicon-user"></i>ID: {{ $value->id }}
+                                <br/>
+                                <i class="glyphicon glyphicon-envelope"></i>Mentoriaus ID: {{ $value->mentor_id }}
+                                <br/>
+                                <i class="glyphicon glyphicon-heart"></i>Aplikavimo data: {{ $value->application_date }}
+                                <br/>
+                                <i class="glyphicon glyphicon-eye-open"></i>Patvirtinimo data: {{ $value->confirmation_date }}
+                                <br/>
+                                <i class="glyphicon glyphicon-globe"></i>Statusas: {{ $value->status }}
+                                <br/>
+                            </p>
+                            <div class="btn-group col-xs-4 col-sm-4 col-md-5">
+                                @if (Auth::guard('mentor')->check())
+                                    <div class="lower-button">
+                                        <a class="btn btn-small btn-info orange-bg"
+                                           href="{{ route('reservations.confirm') }}">Patvirtinti rezervacija</a>
+                                    </div>
+                                @endif
 
-                                    {{--{{ Form::open(array('url' => 'lessons/' . $value->id . '/delete', 'class' => 'pull-left')) }}--}}
-                                    {{--{{ Form::hidden('_method', 'DELETE') }}--}}
-                                    {{--{{ Form::submit('Ištrinti Pamoką', array('class' => 'btn btn-small btn-info orange-bg')) }}--}}
-                                    {{--{{ Form::close() }}--}}
-
-                                {{--</div>--}}
-                                {{--<div class="btn-group">--}}
-                                    {{--<a class="btn btn-small btn-info orange-bg"--}}
-                                       {{--href="{{ route('appointments.dashboard') }}">Parodyti užsiėmimus</a>--}}
-                                {{--</div>--}}
-                                {{--<div class="btn-group">--}}
-                                    {{--<a class="btn btn-small btn-info orange-bg"--}}
-                                       {{--href="{{ route('appointments.create') }}">Pridėti--}}
-                                        {{--užsiėmimą</a>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--@endforeach--}}
+                                @if (Auth::guard('student')->check() || Auth::guard('mentor')->check())
+                                    {{ Form::open(array('url' => 'reservations/' . $value->id . '/delete', 'class' => 'pull-left')) }}
+                                    {{ Form::hidden('_method', 'DELETE') }}
+                                    {{ Form::submit('Ištrinti Rezervacija', array('class' => 'btn btn-small btn-info orange-bg')) }}
+                                    {{ Form::close() }}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>

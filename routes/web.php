@@ -75,9 +75,12 @@ Route::post('mentors/{mentor}/comment', 'CommentsController@store')->name('comme
 
 // Reservation routing
 Route::get('mentors/{mentor}/reservation', 'ReservationsController@store')->name('reservation.store');
+Route::post('mentors/confirm', 'ReservationsController@confirm')->name('reservations.confirm');
 Route::get('reservations/students', 'ReservationsController@showForStudents')->name('reservations.showForStudents');
 Route::get('mentors/{mentor}/unreservation', 'ReservationsController@unstore')->name('reservation.unstore');
 Route::get('/reservations/dashboard', 'ReservationsController@show')->name('reservations.dashboard');
+Route::delete('reservations/{reservation}/delete', 'ReservationsController@destroy')->name('reservations.delete');
+
 
 // Rating routing
 Route::post('mentors/{mentor}/rating', 'RatingsController@store')->name('rating.store');

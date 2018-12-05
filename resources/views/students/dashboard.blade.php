@@ -49,7 +49,7 @@
                     <div class="circle-tile-number text-faded">
                         Kurioms priklausote
                     </div>
-                    <a href="{{ route('reservations.showForStudents') }}" class="circle-tile-footer">Daugiau informacijos <i class="fa fa-chevron-circle-right"></i></a>
+                    <a href="{{ route('reservations.dashboard') }}" class="circle-tile-footer">Daugiau informacijos <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
             </div>
         </div>

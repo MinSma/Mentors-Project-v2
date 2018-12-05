@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\Reservation;
 use App\Repositories\ReservationsRepository;
 use App\Models\Mentor;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +34,20 @@ class ReservationsController extends Controller
      */
     public function show() : View
     {
-        return view('reservations.dashboard');
+        if(Auth::guard('student')->check())
+        {
+            $id = Auth::guard('student')->user()['id'];
+            $reservations = $this->reservationsRepository->all()->where('student_id', $id);
+            
+        }
+        else
+        {
+            $id = Auth::guard('mentor')->user()['id'];
+            $reservations = $this->reservationsRepository->all()->where('mentor_id', $id);
+    
+        }
+    
+        return view('reservations.dashboard', ['reservations' => $reservations]);
     }
 
     /**
@@ -43,6 +56,11 @@ class ReservationsController extends Controller
     public function showForStudents() : View
     {
         return view('reservations.showForStudents');
+    }
+    
+    public function confirm()
+    {
+    
     }
 
     /**
@@ -97,5 +115,13 @@ class ReservationsController extends Controller
         }
 
         return redirect()->back()->with('status', 'Nepavyko išsiregistruoti iš mentoriaus užsiėmimų, jūs nebuvote prisiregistravęs');
+    }
+    
+    
+    public function destroy(Reservation $reservation)
+    {
+        $reservation->delete();
+        
+        return redirect()->back()->with('status', 'Rezervacija buvo sėkmingai pašalintas');
     }
 }

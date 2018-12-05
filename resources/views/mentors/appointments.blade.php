@@ -69,7 +69,7 @@
                                 {{ Form::close() }}
                             @endif
                             @if (Auth::guard('student')->check())
-                                <a class="btn btn-small btn-info orange-bg" href="{{ route('reservation.store', ['mentor' => $value]) }}">Užsiėmimai</a>
+                                <a class="btn btn-small btn-info orange-bg" href="{{ route('reservation.store', ['mentor' => $value]) }}">Rezervuoti</a>
                             @endif
                         </div>
                     </div>
