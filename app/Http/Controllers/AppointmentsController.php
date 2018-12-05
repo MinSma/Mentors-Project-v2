@@ -9,33 +9,67 @@ use App\Models\Lesson;
 use App\Repositories\AppointmentsRepository;
 use App\Repositories\LessonsRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class AppointmentsController extends Controller
 {
+    /**
+     * @var AppointmentsRepository
+     */
     private $appointmentsRepository;
+
+    /**
+     * @var LessonsRepository
+     */
     private $lessonsRepository;
-    
+
+    /**
+     * AppointmentsController constructor.
+     * @param AppointmentsRepository $appointmentsRepository
+     * @param LessonsRepository $lessonsRepository
+     */
     public function __construct(AppointmentsRepository $appointmentsRepository, LessonsRepository $lessonsRepository)
     {
         $this->appointmentsRepository = $appointmentsRepository;
         $this->lessonsRepository = $lessonsRepository;
     }
-    
-    public function show()
+
+    /**
+     * @return View
+     */
+    public function show() : View
     {
-        //$id = Auth::guard('mentor')->user()['id'];
-        
-        //$appointments = $this->appointmentsRepository->model()::where('mentor_id', $id)->where('lesson_id', $lesson['id'])->get();
-        
-        return view('appointments.dashboard'// ['appointments' => $appointments]
-        );
+        $lessons = $this->lessonsRepository->model()::get();
+
+        $appointments = array();
+
+        foreach ($lessons as $lesson)
+        {
+            $appointmentsArray = $this->appointmentsRepository->model()::where('lesson_id', $lesson['id'])->get();
+
+            foreach ($appointmentsArray as $appointment)
+            {
+                array_push($appointments, $appointment);
+            }
+        }
+
+        return view('appointments.dashboard', ['appointments' => $appointments]);
     }
-    
-    public function create(Lesson $lesson)
+
+    /**
+     * @param Lesson $lesson
+     * @return View
+     */
+    public function create(Lesson $lesson) : View
     {
         return view('appointments.create', ['lesson' => $lesson]);
     }
-    
+
+    /**
+     * @param AppointmentCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(AppointmentCreateRequest $request)
     {
             $data = [
@@ -58,7 +92,46 @@ class AppointmentsController extends Controller
             
         return redirect()->back()->with('status', 'Užsiėmimas sukurtas');
     }
-    
+
+    /**
+     * @param Appointment $appointment
+     * @return View
+     */
+    public function edit(Appointment $appointment) : View
+    {
+        return view('appointments.edit', compact('appointment'));
+    }
+
+    /**
+     * @param AppointmentCreateRequest $request
+     * @param Appointment $appointment
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(AppointmentCreateRequest $request, Appointment $appointment)
+    {
+        $appointment->update([
+            'date'              => $request->getDate(),
+            'time'              => $request->getTime(),
+            'duration'          => $request->getDuration(),
+            'price'             => $request->getPrice(),
+            'type'              => $request->getType(),
+            'resources'         => $request->getResources(),
+            'place'             => $request->getPlace(),
+            'additional_cost'   => $request->getAdditionalCost(),
+            'max_distances'     => $request->getMaxDistances(),
+            'language'          => $request->getLanguage(),
+            'additional_info'   => $request->getAdditionalInfo(),
+        ]);
+
+        return redirect()->route('appointments.dashboard')
+            ->with('status', 'Užsiėmimo duomenys buvo sėkmingai atnaujinti');
+    }
+
+    /**
+     * @param Appointment $appointment
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function destroy(Appointment $appointment)
     {
         $appointment->delete();

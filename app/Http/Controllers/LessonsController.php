@@ -24,14 +24,23 @@ class LessonsController extends Controller
      */
     private $searchService;
 
+    /**
+     * LessonsController constructor.
+     * @param LessonsRepository $lessonsRepository
+     * @param SearchService $searchService
+     * @param MentorsRepository $mentorsRepository
+     */
     public function __construct(LessonsRepository $lessonsRepository, SearchService $searchService, MentorsRepository $mentorsRepository)
     {
         $this->lessonsRepository = $lessonsRepository;
         $this->mentorsRepository = $mentorsRepository;
         $this->searchService = $searchService;
     }
-    
-    public function showLessons()
+
+    /**
+     * @return View
+     */
+    public function showLessons() : View
     {
         $id = Auth::guard('mentor')->user()['id'];
     
@@ -39,19 +48,30 @@ class LessonsController extends Controller
     
         return view('lessons.dashboard', ['lessons' => $lessons]);
     }
-    
-    public function showForStudents(Mentor $mentor)
+
+    /**
+     * @param Mentor $mentor
+     * @return View
+     */
+    public function showForStudents(Mentor $mentor) : View
     {
         $lessons = $this->lessonsRepository->model()::where('mentor_id', $mentor['id'])->get();
     
         return view('lessons.showForStudents', ['lessons' => $lessons]);
     }
-    
-    public function create()
+
+    /**
+     * @return View
+     */
+    public function create() : View
     {
         return view('lessons.create');
     }
-    
+
+    /**
+     * @param LessonCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(LessonCreateRequest $request)
     {
         $id = Auth::guard('mentor')->user()['id'];
@@ -71,7 +91,12 @@ class LessonsController extends Controller
         }
         return redirect()->back()->with('status', 'Nepavyko, jūs nesate mentorius');
     }
-    
+
+    /**
+     * @param Lesson $lesson
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function destroy(Lesson $lesson)
     {
         $lesson->delete();

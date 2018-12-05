@@ -28,7 +28,9 @@ class Mentor extends Authenticatable
         'birthday',
         'about',
         'phone',
-        'blockings_id'
+        'blockings_id',
+        'bank_accounts_id',
+        'rating'
         ];
 
     /**

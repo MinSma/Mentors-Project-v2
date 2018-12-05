@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BlockUserRequest;
 use App\Http\Requests\StudentUpdateRequest;
+use App\Repositories\BankAccountsRepository;
 use App\Repositories\BlockingRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\MentorsRepository;
@@ -53,6 +54,8 @@ class StudentsController extends Controller
      */
     private $blockingsRepository;
 
+    private $bankAccountsRepository;
+
     /**
      * StudentsController constructor.
      * @param StudentsRepository $studentsRepository
@@ -60,11 +63,13 @@ class StudentsController extends Controller
      * @param ReservationsRepository $reservationsRepository
      * @param MentorsRepository $mentorsRepository
      * @param CommentsRepository $commentsRepository
-     * @param BlockingsRepository $blockingsRepository
+     * @param BlockingRepository $blockingsRepository
+     * @param BankAccountsRepository $bankAccountsRepository
      */
     public function __construct(StudentsRepository $studentsRepository, PasswordChangeService $passwordChangeService,
                                 ReservationsRepository $reservationsRepository, MentorsRepository $mentorsRepository,
-                                CommentsRepository $commentsRepository, BlockingRepository $blockingsRepository)
+                                CommentsRepository $commentsRepository, BlockingRepository $blockingsRepository,
+                                BankAccountsRepository $bankAccountsRepository)
     {
         $this->studentsRepository = $studentsRepository;
         $this->passwordChangeService = $passwordChangeService;
@@ -72,6 +77,7 @@ class StudentsController extends Controller
         $this->mentorsRepository = $mentorsRepository;
         $this->commentsRepository = $commentsRepository;
         $this->blockingsRepository = $blockingsRepository;
+        $this->bankAccountsRepository = $bankAccountsRepository;
     }
 
     /**
@@ -89,7 +95,11 @@ class StudentsController extends Controller
      */
     public function dashboard(): View
     {
-        return view('students.dashboard');
+        $id = Auth::guard('student')->user()['bank_accounts_id'];
+
+        $bankAccount = $this->bankAccountsRepository->model()::find($id);
+
+        return view('students.dashboard', ['bankAccount' => $bankAccount]);
     }
 
     /**
@@ -106,6 +116,10 @@ class StudentsController extends Controller
      */
     public function store(StudentCreateRequest $request)
     {
+        $created = $this->bankAccountsRepository->create([
+            'amount' => 0.0
+        ]);
+
         $data = [
             'password' => bcrypt($request->getPassword()),
             'email' => $request->getEmail(),
@@ -117,7 +131,7 @@ class StudentsController extends Controller
             'birthday' => $request->getBirthday(),
             'education' => $request->getEducation(),
             'phone' => $request->getPhone(),
-            
+            'bank_accounts_id' => $created['id']
         ];
 
         $this->studentsRepository->create($data);
@@ -258,6 +272,7 @@ class StudentsController extends Controller
     /**
      * @param BlockUserRequest $request
      * @param Student $student
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function blockStore(BlockUserRequest $request, Student $student) {
         $data = [

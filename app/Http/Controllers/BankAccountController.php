@@ -6,7 +6,10 @@ use Illuminate\View\View;
 
 class BankAccountController extends Controller
 {
-    public function showPaymentForm()
+    /**
+     * @return View
+     */
+    public function showPaymentForm() : View
     {
         return view('payments.paymentForm');
     }

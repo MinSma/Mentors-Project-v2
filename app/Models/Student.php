@@ -28,7 +28,8 @@ class Student extends Authenticatable
         'birthday',
         'education',
         'phone',
-        'blockings_id'
+        'blockings_id',
+        'bank_accounts_id'
     ];
 
     /**

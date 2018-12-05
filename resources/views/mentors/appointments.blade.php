@@ -42,7 +42,7 @@
                             </p>
                         </div>
                         <div class="btn-group col-xs-4 col-sm-4 col-md-5">
-                            @if (Auth::guard('web')->check())
+                            @if (Auth::guard('web')->check() || Auth::guard('mentor')->check())
                                 <div class="lower-button">
                                     <a class="btn btn-small btn-info orange-bg"
                                        href="{{ URL::to('appointments/' . $value->id . '/edit') }}">Keisti Susitikimo Duomenis</a>
@@ -52,11 +52,6 @@
                                 {{ Form::hidden('_method', 'DELETE') }}
                                 {{ Form::submit('Ištrinti Susitikimą', array('class' => 'btn btn-small btn-info orange-bg')) }}
                                 {{ Form::close() }}
-                            @elseif (Auth::guard('student')->check())
-                                <div class="lower-button">
-                                    <a class="btn btn-small btn-info orange-bg"
-                                       href="{{ URL::to('appointments/' . $value->id . '/edit') }}">Rezervuoti</a>
-                                </div>
                             @endif
                         </div>
                     </div>

@@ -28,7 +28,9 @@ class CreateStudentsTable extends Migration
             $table->string('education');
             $table->string('phone');
             $table->integer('blockings_id')->unsigned()->nullable();
+            $table->integer('bank_accounts_id')->unsigned();
             $table->foreign('blockings_id')->references('id')->on('blockings');
+            $table->foreign('bank_accounts_id')->references('id')->on('bank_accounts');
             $table->rememberToken();
             $table->timestamps();
         });

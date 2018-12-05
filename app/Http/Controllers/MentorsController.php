@@ -7,8 +7,12 @@ use App\Http\Requests\BlockUserRequest;
 use App\Http\Requests\MentorCreateRequest;
 use App\Http\Requests\MentorUpdateRequest;
 use App\Http\Requests\PasswordChangeRequest;
+use App\Models\Appointment;
+use App\Repositories\AppointmentsRepository;
+use App\Repositories\BankAccountsRepository;
 use App\Repositories\BlockingRepository;
 use App\Repositories\CommentsRepository;
+use App\Repositories\LessonsRepository;
 use App\Repositories\ReservationsRepository;
 use App\Repositories\StudentsRepository;
 use App\Services\SearchService;
@@ -56,18 +60,37 @@ class MentorsController extends Controller
     private $blockingsRepository;
 
     /**
+     * @var LessonsRepository
+     */
+    private $lessonsRepository;
+
+    /**
+     * @var AppointmentsRepository
+     */
+    private $appointmentsRepository;
+
+    /**
+     * @var BankAccountsRepository
+     */
+    private $bankAccountsRepository;
+
+    /**
      * MentorsController constructor.
      * @param MentorsRepository $mentorsRepository
-     * @param SearchService $searchService
      * @param PasswordChangeService $passwordChangeService
      * @param ReservationsRepository $reservationsRepository
      * @param StudentsRepository $studentsRepository
      * @param CommentsRepository $commentsRepository
+     * @param BlockingRepository $blockingsRepository
+     * @param LessonsRepository $lessonsRepository
+     * @param AppointmentsRepository $appointmentsRepository
+     * @param BankAccountsRepository $bankAccountsRepository
      */
     public function __construct(MentorsRepository $mentorsRepository,
                                 PasswordChangeService $passwordChangeService, ReservationsRepository $reservationsRepository,
                                 StudentsRepository $studentsRepository, CommentsRepository $commentsRepository,
-                                BlockingRepository $blockingsRepository)
+                                BlockingRepository $blockingsRepository, LessonsRepository $lessonsRepository,
+                                AppointmentsRepository $appointmentsRepository, BankAccountsRepository $bankAccountsRepository)
     {
         $this->mentorsRepository = $mentorsRepository;
         $this->passwordChangeService = $passwordChangeService;
@@ -75,6 +98,9 @@ class MentorsController extends Controller
         $this->studentsRepository = $studentsRepository;
         $this->commentsRepository = $commentsRepository;
         $this->blockingsRepository = $blockingsRepository;
+        $this->lessonsRepository = $lessonsRepository;
+        $this->appointmentsRepository = $appointmentsRepository;
+        $this->bankAccountsRepository = $bankAccountsRepository;
     }
 
     /**
@@ -109,6 +135,10 @@ class MentorsController extends Controller
      */
     public function store(MentorCreateRequest $request)
     {
+        $created = $this->bankAccountsRepository->create([
+            'amount' => 0.0
+        ]);
+
         $data = [
             'email' => $request->getEmail(),
             'password' => bcrypt($request->getPassword()),
@@ -120,6 +150,8 @@ class MentorsController extends Controller
             'birthday' => $request->getBirthday(),
             'about' => $request->getAbout(),
             'phone' => $request->getPhone(),
+            'bank_accounts_id' => $created['id'],
+            'rating' => 0.0
         ];
 
         $this->mentorsRepository->create($data);
@@ -249,6 +281,7 @@ class MentorsController extends Controller
     /**
      * @param BlockUserRequest $request
      * @param Mentor $mentor
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function blockStore(BlockUserRequest $request, Mentor $mentor)
     {
@@ -274,5 +307,29 @@ class MentorsController extends Controller
 
         return redirect()->back()
             ->with('status', 'Mentorius buvo sėkmingai užblokuotas');
+    }
+
+    /**
+     * @return View
+     */
+    public function appointments() : View
+    {
+        $id = Auth::guard('mentor')->user()['id'];
+
+        $lessons = $this->lessonsRepository->model()::where('mentor_id', $id)->get();
+
+        $appointments = array();
+
+        foreach ($lessons as $lesson)
+        {
+            $appointmentsArray = $this->appointmentsRepository->model()::where('lesson_id', $lesson['id'])->get();
+
+            foreach ($appointmentsArray as $appointment)
+            {
+                array_push($appointments, $appointment);
+            }
+        }
+
+        return view('mentors.appointments', ['appointments' => $appointments]);
     }
 }

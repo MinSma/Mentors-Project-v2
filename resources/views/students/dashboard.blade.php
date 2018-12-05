@@ -12,7 +12,9 @@
                         Balansas
                     </div>
                     <div class="circle-tile-number text-faded">
-                        0.00
+                        {{
+                            $bankAccount['amount']
+                        }}
                     </div>
                     <a href="{{ route('payments.paymentForm') }}" class="circle-tile-footer">Atlikti pervedimą <i class="fa fa-chevron-circle-right"></i></a>
                 </div>

@@ -28,13 +28,19 @@ class ReservationsController extends Controller
     {
         $this->reservationsRepository = $reservationsRepository;
     }
-    
-    public function show()
+
+    /**
+     * @return View
+     */
+    public function show() : View
     {
         return view('reservations.dashboard');
     }
-    
-    public function showForStudents()
+
+    /**
+     * @return View
+     */
+    public function showForStudents() : View
     {
         return view('reservations.showForStudents');
     }
@@ -69,6 +75,10 @@ class ReservationsController extends Controller
         return redirect()->back()->with('status', 'Nepavyko užsiregistruoti į mentoriaus užsiėmimus, Jūs nesate studentas');
     }
 
+    /**
+     * @param Mentor $mentor
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function unstore(Mentor $mentor)
     {
         $id = Auth::guard('student')->user()['id'];

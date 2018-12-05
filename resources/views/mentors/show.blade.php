@@ -19,18 +19,14 @@
                         <p>
                             <i class="glyphicon glyphicon-envelope"></i>{{ $mentor->email }}
                             <br />
-                            <i class="glyphicon glyphicon-globe"></i><span class="orange">{{ $mentor->topic }}</span>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>{{ $mentor->fixed_hour_price }} 
-                            <br />
-                            <i class="glyphicon glyphicon-user"></i>Amžius: {{ $mentor->age }}
+                            <i class="glyphicon glyphicon-user"></i>Gimimo data: {{ $mentor->birthday }}
                             <br />
                             <i class="glyphicon glyphicon-pencil"></i>Įvertinimas: {{ $mentor->rating }}
                         </p>
                         <div class="btn-group">
                         <div class=""> 
                             @if(Auth::guard('student')->check() || !Auth::guest())
-                            <a class="btn btn-small btn-info orange-bg" href="{{ route('lessons.showForStudents', $mentor) }}">Pamokos</a>
+                            <a class="btn btn-small btn-info orange-bg" href="{{ route('mentors.appointments', $mentor) }}">Užsiėmimai</a>
                             @endif
                             </div>              
                         </div>

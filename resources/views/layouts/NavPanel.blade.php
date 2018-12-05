@@ -25,7 +25,7 @@
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Užsiėmimai <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ route('appointments.dashboard') }}">Peržiūrėti Užsiėmimus</a></li>
+                            <li><a href="{{ route('mentors.appointments') }}">Peržiūrėti Užsiėmimus</a></li>
                         </ul>
                     </li>
                     <li><a href="/mentors/{{ Auth::guard('mentor')->user()['id'] }}/edit">Duomenų Keitimas</a></li>

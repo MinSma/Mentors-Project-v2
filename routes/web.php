@@ -3,6 +3,7 @@
 // Mentors
 Route::get('mentors/', 'MentorsController@index')->name('mentors.index')->middleware('auth');
 Route::get('mentors/{mentor}/block', 'MentorsController@block')->name('mentors.block')->middleware('auth');
+Route::get('mentors/appointments', 'MentorsController@appointments')->name('mentors.appointments');
 Route::get('mentors/students', 'MentorsController@students')->name('mentors.students')->middleware('auth:mentor');
 Route::get('mentors/dashboard', 'MentorsController@dashboard')->name('mentors.dashboard')->middleware('auth:mentor');
 Route::get('mentors/dashboard/change',
@@ -94,7 +95,11 @@ Route::get('lessons/found', 'LessonsController@found')->name('lessons.found');
 // Appointments routing
 Route::get('/appointments/dashboard', 'AppointmentsController@show')->name('appointments.dashboard');
 Route::get('/appointments/create/{lesson}', 'AppointmentsController@create')->name('appointments.create');
+Route::group(['middleware' => ['auth' || 'auth:student']], function () {
+    Route::get('appointments/{appointment}/edit', 'AppointmentsController@edit')->name('appointments.edit');
+});
 Route::post('/appointments', 'AppointmentsController@store')->name('appointments.store');
+Route::put('appointments/{appointment}/update', 'AppointmentsController@update')->name('appointments.update');
 Route::delete('appointments/{appointment}/delete', 'AppointmentsController@destroy')->name('appointments.delete');
 
 
