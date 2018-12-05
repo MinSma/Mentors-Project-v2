@@ -42,7 +42,7 @@
                         <div class="btn-group">
                         <div class=""> 
                             @if(Auth::guard('student')->check() || !Auth::guest())
-                            <a class="btn btn-small btn-info orange-bg" href="{{ route('mentors.appointments', $mentor) }}">Užsiėmimai</a>
+                            <a class="btn btn-small btn-info orange-bg" href="{{ route('mentors.appointments', ['mentor' => $mentor]) }}">Užsiėmimai</a>
                             @endif
                             </div>              
                         </div>

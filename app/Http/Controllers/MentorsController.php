@@ -311,7 +311,12 @@ class MentorsController extends Controller
      */
     public function appointments() : View
     {
-        $id = Auth::guard('mentor')->user()['id'];
+        if(Auth::guard('mentor')->check()){
+            $id = Auth::guard('mentor')->user()['id'];
+        }
+        else{
+            $id = request()->query('mentor');
+        }
 
         $lessons = $this->lessonsRepository->model()::where('mentor_id', $id)->get();
 

@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
-    protected $table = 'mentor_student';
+    protected $table = 'reservations';
 
     protected $fillable = [
         'mentor_id',
+        'application_date',
+        'confirmation_date',
+        'status',
         'student_id'
     ];
 

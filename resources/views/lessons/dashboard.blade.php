@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="btn-group">
                                     <a class="btn btn-small btn-info orange-bg"
-                                       href="{{ route('appointments.dashboard') }}">Parodyti užsiėmimus</a>
+                                       href="{{ route('mentors.appointments') }}">Parodyti užsiėmimus</a>
                                 </div>
                                 <div class="btn-group">
                                     <a class="btn btn-small btn-info orange-bg"

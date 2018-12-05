@@ -61,6 +61,8 @@ class ReservationsController extends Controller
             if($doesHaveReservation == NULL) {
                 $data = [
                     'mentor_id' => $mentor['id'],
+                    'application_date' => date('Y-m-d H:i:s'),
+                    'status' => 'pending',
                     'student_id' => $id
                 ];
 
