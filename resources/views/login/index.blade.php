@@ -1,6 +1,23 @@
 @include('guestPagesLayouts.homeHeaderIncludes')
 @include('layouts.NavPanel')
 @include('guestPagesLayouts.homeHeaderSection')
+
+@if(session()->has('status'))
+    <div class="alert alert-success">
+        {{ session()->get('status') }}
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container lower">
     <div class="row centered-form">
         <div class="col-xs-12 col-sm-12 col-md-12">

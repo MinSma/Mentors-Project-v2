@@ -3,13 +3,22 @@
 @include('guestPagesLayouts.homeHeaderSection')
 <h1 class="mb-2 text-center">Studento registracija</h1>
 
-@if(session('message'))
-    <div class='alert alert-success'>
-        {{ session('message') }}
+@if(session()->has('status'))
+    <div class="alert alert-success">
+        {{ session()->get('status') }}
     </div>
 @endif
 
-<br/>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container lower">
     <div class="row centered-form">
         <div class="col-xs-12 col-sm-12 col-md-12">

@@ -1,10 +1,21 @@
 <h1 class="mb-2 text-center">Susisiekite Su Mumis</h1>
 
-@if(session('message'))
-    <div class='alert alert-success'>
-        {{ session('message') }}
+@if(session()->has('status'))
+    <div class="alert alert-success">
+        {{ session()->get('status') }}
     </div>
 @endif
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
 <br/>
 <div class="container lower">

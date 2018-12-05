@@ -118,11 +118,12 @@ class LessonsController extends Controller
     public function found(Request $request) : View {
         $lessons = $this->searchService->getLessons($request);
         $mentors = [];
+
         foreach($lessons as $lesson)
         {
             array_push($mentors, $this->mentorsRepository->all()->where('id', $lesson->mentor_id));
         }
-        
+
         return view('lessons.found', ['lessons' => $mentors]);
     }
 }

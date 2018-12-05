@@ -23,9 +23,7 @@
                                     <i class="glyphicon glyphicon-globe"></i><span
                                             class="orange">{{ $mentor->gender }}</span>
                                     <br/>
-                                    <i class="glyphicon glyphicon-gift"></i>{{ $mentor->fixed_hour_price }}
-                                    <br/>
-                                    <i class="glyphicon glyphicon-user"></i>Amžius: {{ $mentor->age }}
+                                    <i class="glyphicon glyphicon-user"></i>Gimimo data: {{ $mentor->birthday }}
                                     <br/>
                                     <i class="glyphicon glyphicon-pencil"></i>Įvertinimas: {{ $mentor->rating }}
                                     <br/>
@@ -40,7 +38,6 @@
                                            href="{{ route('students.touchMentors') }}">Susisiekti su mentoriumi</a>
                                     </div>
                                 @endif
-
                             </div>
                         </div>
                     </div>

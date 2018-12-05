@@ -5,6 +5,22 @@
         @include('guestPagesLayouts.homeHeaderIncludes')
     </head>
 
+    @if(session()->has('status'))
+        <div class="alert alert-success">
+            {{ session()->get('status') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <body id="Mentors_Project" data-spy="scroll" data-target=".navbar" data-offset="60">
         @include('guestPagesLayouts.homeHeaderSection')
         @include('layouts.NavPanel')
