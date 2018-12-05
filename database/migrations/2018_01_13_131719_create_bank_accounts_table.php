@@ -18,6 +18,13 @@ class CreateBankAccountsTable extends Migration
             $table->double('amount')->unsigned();
             $table->timestamps();
         });
+
+        for($i = 0; $i < 2; $i++)
+        {
+            \App\Models\BankAccount::create([
+                'amount' => 0
+            ]);
+        }
     }
 
     /**

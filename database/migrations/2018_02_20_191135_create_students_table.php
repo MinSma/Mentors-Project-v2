@@ -34,6 +34,21 @@ class CreateStudentsTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\Models\Student::create([
+            'email' => 'student@email.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'first_name' => 'Studentas',
+            'last_name' => 'Studentas',
+            'gender' => 'vyras',
+            'city' => 'Kaunas',
+            'address' => 'Stud g. 51',
+            'birthday' => '1994-05-05',
+            'education' => 'aukstasis',
+            'phone' => '86868686',
+            'bank_accounts_id' => 2,
+            'remember_token' => str_random(10)
+        ]);
     }
 
     /**

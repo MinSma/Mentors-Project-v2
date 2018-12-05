@@ -28,6 +28,20 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\User::create([
+            'email' => 'admin@email.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'gender' => 'vyras',
+            'city' => 'Kaunas',
+            'address' => 'Lalala 22',
+            'birthday' => '2001-12-05',
+            'role' => 'sys_admin',
+            'phone' => '99999999',
+            'remember_token' => str_random(10)
+        ]);
     }
 
     /**
