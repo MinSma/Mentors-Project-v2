@@ -74,7 +74,7 @@ Route::post('/contactus', 'ContactsController@mailToAdmin');
 Route::post('mentors/{mentor}/comment', 'CommentsController@store')->name('comments.store');
 
 // Reservation routing
-Route::get('mentors/{mentor}/reservation', 'ReservationsController@store')->name('reservation.store');
+Route::get('mentors/{appointment}/reservation', 'ReservationsController@store')->name('reservation.store');
 Route::post('mentors/confirm', 'ReservationsController@confirm')->name('reservations.confirm');
 Route::get('reservations/students', 'ReservationsController@showForStudents')->name('reservations.showForStudents');
 Route::get('mentors/{mentor}/unreservation', 'ReservationsController@unstore')->name('reservation.unstore');

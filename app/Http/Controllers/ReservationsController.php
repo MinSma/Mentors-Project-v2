@@ -3,7 +3,10 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Reservation;
+use App\Repositories\LessonsRepository;
+use App\Repositories\MentorsRepository;
 use App\Repositories\ReservationsRepository;
 use App\Models\Mentor;
 use Illuminate\Support\Facades\Auth;
@@ -19,14 +22,18 @@ class ReservationsController extends Controller
      * @var ReservationsRepository
      */
     private $reservationsRepository;
+    private $lessonsRepository;
+    private $mentorsRepository;
 
     /**
      * ReservationsController constructor.
      * @param ReservationsRepository $reservationsRepository
      */
-    public function __construct(ReservationsRepository $reservationsRepository)
+    public function __construct(ReservationsRepository $reservationsRepository, LessonsRepository $lessonsRepository, MentorsRepository $mentorsRepository)
     {
         $this->reservationsRepository = $reservationsRepository;
+        $this->lessonsRepository = $lessonsRepository;
+        $this->mentorsRepository = $mentorsRepository;
     }
 
     /**
@@ -67,9 +74,10 @@ class ReservationsController extends Controller
      * @param Mentor $mentor
      * @return $this
      */
-    public function store(Mentor $mentor) {
+    public function store(Appointment $appointment) {
         $id = Auth::guard('student')->user()['id'];
-
+        $lesson = $this->lessonsRepository->model()::where('id', $appointment['lesson_id'])->first();
+        $mentor = $this->mentorsRepository->model()::where('id', $lesson['mentor_id'])->first();
         if($id != null){
             $doesHaveReservation = $this->reservationsRepository->model()
                 ::where('mentor_id', $mentor['id'])
