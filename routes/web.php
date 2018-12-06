@@ -74,6 +74,7 @@ Route::post('/contactus', 'ContactsController@mailToAdmin');
 
 // Comments routing
 Route::post('mentors/{mentor}/comment', 'CommentsController@store')->name('comments.store');
+Route::delete('comments/{comment}', 'CommentsController@destroy')->name('comments.delete')->middleware('auth');
 
 // Reservation routing
 Route::get('mentors/{appointment}/reservation', 'ReservationsController@store')->name('reservation.store');
@@ -85,6 +86,7 @@ Route::delete('reservations/{reservation}/delete', 'ReservationsController@destr
 
 
 // Rating routing
+Route::get('mentors/{mentor}/resetrating', 'MentorsController@resetRating')->name('mentors.resetRating')->middleware('auth');
 Route::post('mentors/{mentor}/rating', 'RatingsController@store')->name('rating.store');
 
 // Lessons routing

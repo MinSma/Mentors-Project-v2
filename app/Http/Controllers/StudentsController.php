@@ -9,6 +9,7 @@ use App\Repositories\BankAccountsRepository;
 use App\Repositories\BlockingRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\MentorsRepository;
+use App\Repositories\RatingsRepository;
 use App\Repositories\ReservationsRepository;
 use App\Services\PasswordChangeService;
 use App\Http\Requests\StudentCreateRequest;
@@ -56,7 +57,15 @@ class StudentsController extends Controller
      */
     private $blockingsRepository;
 
+    /**
+     * @var BankAccountsRepository
+     */
     private $bankAccountsRepository;
+
+    /**
+     * @var RatingsRepository
+     */
+    private $ratingsRepository;
 
     /**
      * StudentsController constructor.
@@ -67,11 +76,12 @@ class StudentsController extends Controller
      * @param CommentsRepository $commentsRepository
      * @param BlockingRepository $blockingsRepository
      * @param BankAccountsRepository $bankAccountsRepository
+     * @param RatingsRepository $ratingsRepository
      */
     public function __construct(StudentsRepository $studentsRepository, PasswordChangeService $passwordChangeService,
                                 ReservationsRepository $reservationsRepository, MentorsRepository $mentorsRepository,
                                 CommentsRepository $commentsRepository, BlockingRepository $blockingsRepository,
-                                BankAccountsRepository $bankAccountsRepository)
+                                BankAccountsRepository $bankAccountsRepository, RatingsRepository $ratingsRepository)
     {
         $this->studentsRepository = $studentsRepository;
         $this->passwordChangeService = $passwordChangeService;
@@ -80,6 +90,7 @@ class StudentsController extends Controller
         $this->commentsRepository = $commentsRepository;
         $this->blockingsRepository = $blockingsRepository;
         $this->bankAccountsRepository = $bankAccountsRepository;
+        $this->ratingsRepository = $ratingsRepository;
     }
 
     /**
@@ -212,6 +223,20 @@ class StudentsController extends Controller
             ::where('student_id', $student['id'])->get();
 
         foreach($comments as $key){
+            $key->delete();
+        }
+
+        $ratings = $this->ratingsRepository->model()
+            ::where('student_id', $student['id'])->get();
+
+        foreach ($ratings as $key) {
+            $key->delete();
+        }
+
+        $bankAccount = $this->bankAccountsRepository->model()
+            ::where('student_id', $student['id'])->get();
+
+        foreach ($bankAccount as $key) {
             $key->delete();
         }
 

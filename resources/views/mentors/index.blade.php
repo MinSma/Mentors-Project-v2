@@ -41,13 +41,9 @@
                                 <br/>
                                 <i class="glyphicon glyphicon-heart"></i>Lytis: {{ $value->gender }}
                                 <br/>
-                                <i class="glyphicon glyphicon-eye-open"></i>Amžius: {{ $value->age }}
+                                <i class="glyphicon glyphicon-eye-open"></i>Gimimo data: {{ $value->birthday }}
                                 <br/>
                                 <i class="glyphicon glyphicon-globe"></i>{{ $value->city }}
-                                <br/>
-                                <i class="glyphicon glyphicon-book"></i>{{ $value->topic }}
-                                <br/>
-                                <i class="glyphicon glyphicon-fire"></i>{{ $value->fixed_hour_price }} EU
                                 <br/>
                                 <i class="glyphicon glyphicon-pencil"></i>Įvertinimas: {{ $value->rating }}
                                 <br/>
@@ -67,7 +63,7 @@
                                        href="{{ URL::to('mentors/' . $value->id . '/edit') }}">Keisti Mentoriaus
                                         Duomenis</a>
                                     <a class="btn btn-small btn-info orange-bg u-margin-top-10px"
-                                       href="{{ URL::to('mentors/' . $value->id . '/edit') }}">Koreguoti vertinimą</a>
+                                       href="{{ URL::to('mentors/' . $value->id) }}">Peržiūrėti profilį</a>
                                 </div>
 
                                 {{ Form::open(array('url' => 'mentors/' . $value->id . '/delete', 'class' => 'pull-left')) }}

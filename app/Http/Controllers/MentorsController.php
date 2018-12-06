@@ -12,6 +12,7 @@ use App\Repositories\BankAccountsRepository;
 use App\Repositories\BlockingRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\LessonsRepository;
+use App\Repositories\RatingsRepository;
 use App\Repositories\ReservationsRepository;
 use App\Repositories\StudentsRepository;
 use App\Services\PasswordChangeService;
@@ -74,6 +75,11 @@ class MentorsController extends Controller
     private $bankAccountsRepository;
 
     /**
+     * @var RatingsRepository
+     */
+    private $ratingsRepository;
+
+    /**
      * MentorsController constructor.
      * @param MentorsRepository $mentorsRepository
      * @param PasswordChangeService $passwordChangeService
@@ -84,12 +90,14 @@ class MentorsController extends Controller
      * @param LessonsRepository $lessonsRepository
      * @param AppointmentsRepository $appointmentsRepository
      * @param BankAccountsRepository $bankAccountsRepository
+     * @param RatingsRepository $ratingsRepository
      */
     public function __construct(MentorsRepository $mentorsRepository,
                                 PasswordChangeService $passwordChangeService, ReservationsRepository $reservationsRepository,
                                 StudentsRepository $studentsRepository, CommentsRepository $commentsRepository,
                                 BlockingRepository $blockingsRepository, LessonsRepository $lessonsRepository,
-                                AppointmentsRepository $appointmentsRepository, BankAccountsRepository $bankAccountsRepository)
+                                AppointmentsRepository $appointmentsRepository, BankAccountsRepository $bankAccountsRepository,
+                                RatingsRepository $ratingsRepository)
     {
         $this->mentorsRepository = $mentorsRepository;
         $this->passwordChangeService = $passwordChangeService;
@@ -100,6 +108,7 @@ class MentorsController extends Controller
         $this->lessonsRepository = $lessonsRepository;
         $this->appointmentsRepository = $appointmentsRepository;
         $this->bankAccountsRepository = $bankAccountsRepository;
+        $this->ratingsRepository = $ratingsRepository;
     }
 
     /**
@@ -248,6 +257,20 @@ class MentorsController extends Controller
             $key->delete();
         }
 
+        $ratings = $this->ratingsRepository->model()
+            ::where('mentor_id', $mentor['id'])->get();
+
+        foreach ($ratings as $key) {
+            $key->delete();
+        }
+
+        $bankAccount = $this->bankAccountsRepository->model()
+            ::where('mentor_id', $mentor['id'])->get();
+
+        foreach ($bankAccount as $key) {
+            $key->delete();
+        }
+
         $mentor->delete();
 
         return redirect()->back()
@@ -346,6 +369,11 @@ class MentorsController extends Controller
         return view('mentors.touch', compact('mentor'));
     }
 
+    /**
+     * @param Request $request
+     * @param Mentor $mentor
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function touchMentorsSend(Request $request, Mentor $mentor)
     {
         $student = Auth::guard('student')->user();
@@ -365,5 +393,25 @@ class MentorsController extends Controller
 
         return redirect()->back()
             ->with('status', 'Buvo sėkmingai išsiųstas laiškas!');
+    }
+
+    /**
+     * @param Mentor $mentor
+     */
+    public function resetRating(Mentor $mentor)
+    {
+        $ratings = $this->ratingsRepository->model()
+            ::where('mentor_id', $mentor['id'])->get();
+
+        foreach ($ratings as $key) {
+            $key->delete();
+        }
+
+        $mentor->update([
+            'rating' => 0
+        ]);
+
+        return redirect()->back()
+            ->with('status', 'Vertinimas buvo sėkmingai anuliuotas');
     }
 }

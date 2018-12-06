@@ -48,9 +48,6 @@
                                 <br/>
                             </p>
                             <div class="btn-group">
-                                <br/>
-                                <i class="glyphicon glyphicon-globe"></i>{{ $value->city }}
-                                <br/>
                                 <div class="lower-button">
                                     @if (Auth::guard('web')->check())
                                         @if ($value->blockings_id == NULL)

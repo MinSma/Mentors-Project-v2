@@ -73,9 +73,10 @@ class RatingsController extends Controller
                 return redirect()->back()->with('status', 'Sėkmingai įvertinote mentorių');
             }
 
-            return redirect()->back()->with('status', 'Nepavyko įvertinti, Jūs jau esate įvertinęs šį mentorių');
+            return redirect()->back()->withErrors(['ratings' => 'Nepavyko įvertinti, Jūs jau esate įvertinęs šį mentorių']);
         }
 
-        return redirect()->back()->with('status', 'Nepavyko įvertinti, jūs nesate studentas');
+        return redirect()->back()->withErrors(['ratings' => 'Nepavyko įvertinti, jūs nesate studentas']);
+
     }
 }

@@ -63,6 +63,12 @@
                                      <button type="submit" class="btn btn-small btn-info orange-bg">Vertinti</button>
                                  </div>
                              </form>
+                             @if (Auth::guard('web')->check())
+                                 {{ Form::open(array('url' => 'mentors/' . $mentor->id . '/resetrating', 'class' => 'pull-left')) }}
+                                 {{ Form::hidden('_method', 'GET') }}
+                                 {{ Form::submit('Anuliuoti Vertinimą', array('class' => 'btn btn-small btn-info orange-bg')) }}
+                                 {{ Form::close() }}
+                             @endif
 
                              <form method="POST" action="{{ route('comments.store', $mentor) }}">
                                 {{ csrf_field() }}
@@ -77,7 +83,17 @@
                          @if($mentor->comments != null)
                              Komentarai
                              @foreach($mentor->comments as $comment)
-                                 <div>{{$comment->body}} {{$comment->created_at->diffForHumans()}}</div>
+                                     <div>
+                                         <b>{{$mentor->email}} {{$comment->created_at->diffForHumans()}}</b>
+                                         @if (Auth::guard('web')->check())
+                                             {{ Form::open(array('url' => 'comments/' . $comment->id, 'class' => 'pull-right')) }}
+                                             {{ Form::hidden('_method', 'DELETE') }}
+                                             {{ Form::submit('Ištrinti', array('class' => 'btn btn-small btn-info orange-bg')) }}
+                                             {{ Form::close() }}
+                                         @endif
+                                         <br>
+                                         {{$comment->body}}
+                                     </div>
                              @endforeach
                          @endif
                     </div>

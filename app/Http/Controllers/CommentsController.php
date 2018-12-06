@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Repositories\CommentsRepository;
 use App\Http\Requests\CommentStoreRequest;
 use App\Models\Mentor;
@@ -56,10 +57,21 @@ class CommentsController extends Controller
 
                 return redirect()->back()->with('status', 'Sėkmingai palikote atsiliepimą apie mentorių');
             }
-
-            return redirect()->back()->with('status', 'Nepavyko pakomentuoti, Jūs jau esate pakomentavęs šį mentorių');
+;
+            return redirect()->back()->withErrors(['comments' => 'Nepavyko pakomentuoti, Jūs jau esate pakomentavęs šį mentorių']);
         }
 
-        return redirect()->back()->with('status', 'Nepavyko pakomentuoti, jūs nesate studentas');
+        return redirect()->back()->withErrors(['comments' => 'Nepavyko pakomentuoti, jūs nesate studentas']);
+    }
+
+    /**
+     * @param Comment $comment
+     */
+    public function destroy (Comment $comment)
+    {
+        $comment->delete();
+
+        return redirect()->back()
+            ->with('status', 'Komentaras buvo sėkmingai pašalintas');
     }
 }
