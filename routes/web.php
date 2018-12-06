@@ -75,7 +75,7 @@ Route::post('mentors/{mentor}/comment', 'CommentsController@store')->name('comme
 
 // Reservation routing
 Route::get('mentors/{appointment}/reservation', 'ReservationsController@store')->name('reservation.store');
-Route::post('mentors/confirm', 'ReservationsController@confirm')->name('reservations.confirm');
+Route::get('mentors/{reservation}/confirm', 'ReservationsController@confirm')->name('reservations.confirm');
 Route::get('reservations/students', 'ReservationsController@showForStudents')->name('reservations.showForStudents');
 Route::get('mentors/{mentor}/unreservation', 'ReservationsController@unstore')->name('reservation.unstore');
 Route::get('/reservations/dashboard', 'ReservationsController@show')->name('reservations.dashboard');

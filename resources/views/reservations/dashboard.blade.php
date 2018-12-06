@@ -30,7 +30,7 @@
                                 @if (Auth::guard('mentor')->check())
                                     <div class="lower-button">
                                         <a class="btn btn-small btn-info orange-bg"
-                                           href="{{ route('reservations.confirm') }}">Patvirtinti rezervacija</a>
+                                           href="{{ route('reservations.confirm', ['reservation' => $value]) }}">Patvirtinti rezervacija</a>
                                     </div>
                                 @endif
 

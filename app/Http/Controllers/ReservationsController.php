@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Reservation;
 use App\Repositories\LessonsRepository;
 use App\Repositories\MentorsRepository;
+use App\Repositories\OrdersRepository;
 use App\Repositories\ReservationsRepository;
 use App\Models\Mentor;
 use Illuminate\Support\Facades\Auth;
@@ -24,16 +25,21 @@ class ReservationsController extends Controller
     private $reservationsRepository;
     private $lessonsRepository;
     private $mentorsRepository;
-
+    private $ordersRepository;
+    
     /**
      * ReservationsController constructor.
      * @param ReservationsRepository $reservationsRepository
+     * @param LessonsRepository      $lessonsRepository
+     * @param MentorsRepository      $mentorsRepository
+     * @param OrdersRepository       $ordersRepository
      */
-    public function __construct(ReservationsRepository $reservationsRepository, LessonsRepository $lessonsRepository, MentorsRepository $mentorsRepository)
+    public function __construct(ReservationsRepository $reservationsRepository, LessonsRepository $lessonsRepository, MentorsRepository $mentorsRepository, OrdersRepository $ordersRepository )
     {
         $this->reservationsRepository = $reservationsRepository;
         $this->lessonsRepository = $lessonsRepository;
         $this->mentorsRepository = $mentorsRepository;
+        $this->ordersRepository = $ordersRepository;
     }
 
     /**
@@ -65,8 +71,23 @@ class ReservationsController extends Controller
         return view('reservations.showForStudents');
     }
     
-    public function confirm()
+    public function confirm(Reservation $reservation)
     {
+        $reservation->update([
+            'status' => 'Patvirtinta',
+            'confirmation_date' => date('Y-m-d H:i:s'),
+        ]);
+        
+        $data = [
+            'state' => 'Neapmoketas',
+            'creation_date' => date('Y-m-d H:i:s'),
+            'mentor_confirmation' => false,
+            'student_confirmation' => false,
+        ];
+        
+        $this->ordersRepository->create($data);
+        
+        return redirect()->back()->with('status', 'Sėkmingai patvirtinote rezervacija');
     
     }
 
@@ -88,7 +109,7 @@ class ReservationsController extends Controller
                 $data = [
                     'mentor_id' => $mentor['id'],
                     'application_date' => date('Y-m-d H:i:s'),
-                    'status' => 'pending',
+                    'status' => 'Laukia mentoriaus patvirtinimo',
                     'student_id' => $id
                 ];
 
