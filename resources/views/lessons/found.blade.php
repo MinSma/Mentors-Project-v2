@@ -35,7 +35,7 @@
                                 @if(Auth::guard('student')->check() || !Auth::guest())
                                     <div class="btn-group">
                                         <a class="btn btn-small btn-info orange-bg"
-                                           href="{{ route('students.touchMentors') }}">Susisiekti su mentoriumi</a>
+                                           href="{{ route('mentors.touchMentors', $mentor) }}">Susisiekti su mentoriumi</a>
                                     </div>
                                 @endif
                             </div>

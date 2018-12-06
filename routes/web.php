@@ -8,6 +8,8 @@ Route::get('mentors/students', 'MentorsController@students')->name('mentors.stud
 Route::get('mentors/dashboard', 'MentorsController@dashboard')->name('mentors.dashboard')->middleware('auth:mentor');
 Route::get('mentors/dashboard/change',
     'MentorsController@changePassword')->name('mentors.changePassword')->middleware('auth:mentor');
+Route::get('mentors/{mentor}/touch-mentors',
+    'MentorsController@touchMentors')->name('mentors.touchMentors')->middleware('auth:student');
 Route::post('mentors/dashboard/change',
     'MentorsController@storePassword')->name('mentors.storePassword')->middleware('auth:mentor');
 Route::get('mentors/create', 'MentorsController@create')->name('mentors.create');
@@ -18,6 +20,8 @@ Route::group(['middleware' => ['auth' || 'auth:mentor']], function () {
 });
 Route::post('mentors/', 'MentorsController@store')->name('mentors.store');
 Route::post('mentors/{mentor}/block', 'MentorsController@blockStore')->name('mentors.blockStore')->middleware('auth');
+Route::post('mentors/{mentor}/send', 'MentorsController@touchMentorsSend')
+    ->name('mentors.touchMentorsSend');
 Route::put('mentors/{mentor}/update', 'MentorsController@update')->name('mentors.update');
 Route::delete('mentors/{mentor}/delete', 'MentorsController@destroy')->name('mentors.delete')->middleware('auth');
 
@@ -32,8 +36,6 @@ Route::get('students/dashboard/change',
 Route::post('students/dashboard/change',
     'StudentsController@storePassword')->name('students.storePassword')->middleware('auth:student');
 Route::get('students/create', 'StudentsController@create')->name('students.create');
-Route::get('students/touch-mentors',
-    'StudentsController@touchMentors')->name('students.touchMentors')->middleware('auth:student');
 Route::get('students/{student}/', 'StudentsController@show')->name('students.show');
 Route::group(['middleware' => ['auth' || 'auth:student']], function () {
     Route::get('students/{student}/edit', 'StudentsController@edit')->name('students.edit');

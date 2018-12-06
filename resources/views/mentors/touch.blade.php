@@ -4,26 +4,24 @@
         @section('title', 'Susisiekite su mentoriumi')
         @include('guestPagesLayouts.homeHeaderIncludes')
     </head>
-
-    @if(session()->has('status'))
-        <div class="alert alert-success">
-            {{ session()->get('status') }}
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <body id="Mentors_Project" data-spy="scroll" data-target=".navbar" data-offset="60">
         @include('guestPagesLayouts.homeHeaderSection')
         @include('layouts.NavPanel')
+        @if(session()->has('status'))
+            <div class="alert alert-success">
+                {{ session()->get('status') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="container lower">
             <div class="row centered-form">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -32,20 +30,8 @@
                             <p class="panel-title">Susisiekite su mentoriumi</p>
                         </div>
                         <div class="panel-body">
-                            <form action="/contactus" method="post">
+                            <form action={{ route('mentors.touchMentorsSend', $mentor) }} method="post">
                                 {{ csrf_field() }}
-                                <div class="form-group">
-                                    <label for="Name">Vardas: </label>
-                                    <input type="text" class="form-control" id="name" placeholder="Jūsų vardas" name="name"
-                                           required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Elektroninis pašto adresas: </label>
-                                    <input type="text" class="form-control" id="email" placeholder="john@example.com"
-                                           name="email" required>
-                                </div>
-
                                 <div class="form-group">
                                     <label for="message">Žinutė: </label>
                                     <textarea type="text" class="form-control luna-message" id="message"

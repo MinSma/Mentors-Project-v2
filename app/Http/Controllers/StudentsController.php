@@ -15,6 +15,8 @@ use App\Http\Requests\StudentCreateRequest;
 use App\Http\Requests\PasswordChangeRequest;
 use App\Repositories\StudentsRepository;
 use App\Models\Student;
+use App\Models\Mentor;
+use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -262,19 +264,12 @@ class StudentsController extends Controller
     }
 
     /**
-     * @return View
-     */
-    public function touchMentors() : View
-    {
-        return view('students.touch');
-    }
-
-    /**
      * @param BlockUserRequest $request
      * @param Student $student
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function blockStore(BlockUserRequest $request, Student $student) {
+    public function blockStore(BlockUserRequest $request, Student $student)
+    {
         $data = [
             'start_date' => $request->getStartDate(),
             'end_date' => $request->getEndDate(),

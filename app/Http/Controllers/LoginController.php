@@ -79,7 +79,8 @@ class LoginController extends Controller
                 if($blockingEndDate > $currentTime)
                 {
                     auth('student')->logout();
-                    return view('login.index')->with('status', 'Jūs esate užblokuotas iki ' . $blockingEndDate);
+                    return view('login.index')->withErrors(['login' =>
+                        'Jūs esate užblokuotas iki ' . $blockingEndDate]);
                 }
             }
 
@@ -99,7 +100,8 @@ class LoginController extends Controller
                 if($blockingEndDate > $currentTime)
                 {
                     auth('mentor')->logout();
-                    return view('login.index')->with('status', 'Jūs esate užblokuotas iki ' . $blockingEndDate);
+                    return view('login.index')->withErrors(['login' =>
+                        'Jūs esate užblokuotas iki ' . $blockingEndDate]);
                 }
             }
 
@@ -111,7 +113,7 @@ class LoginController extends Controller
             return redirect()->route('users.dashboard')->with('status', 'Sėkmingai prisijungėte');
         }
 
-        else return redirect()->back()->with('status', 'Prisijungimas nepavyko, įvesti blogi prisijungimo duomenys');
+        else return redirect()->back()->withErrors(['login' => 'Prisijungimas nepavyko, įvesti blogi prisijungimo duomenys']);
     }
 
     /**

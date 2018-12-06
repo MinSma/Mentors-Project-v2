@@ -17,7 +17,9 @@ use App\Repositories\StudentsRepository;
 use App\Services\PasswordChangeService;
 use App\Repositories\MentorsRepository;
 use App\Models\Mentor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 /**
@@ -333,5 +335,35 @@ class MentorsController extends Controller
         }
 
         return view('mentors.appointments', ['appointments' => $appointments]);
+    }
+
+
+    /**
+     * @return View
+     */
+    public function touchMentors(Mentor $mentor) : View
+    {
+        return view('mentors.touch', compact('mentor'));
+    }
+
+    public function touchMentorsSend(Request $request, Mentor $mentor)
+    {
+        $student = Auth::guard('student')->user();
+
+        $data = array(
+            'name' => $student['first_name'].' '.$student['last_name'],
+            'body' => $request['message'],
+            'email' => $student['email']
+        );
+
+        Mail::send(['text' => 'mentors.touch'], ['mentor' => $mentor], function($message) use($data) {
+            $message->subject('Laiškas nuo vartotojo'.' '.$data['email']);
+            $message->setBody($data['body'], 'text/html');
+            $message->from('us@example.com', $data['name']);
+            $message->to('mindaugas1017@gmail.com');
+        });
+
+        return redirect()->back()
+            ->with('status', 'Buvo sėkmingai išsiųstas laiškas!');
     }
 }
