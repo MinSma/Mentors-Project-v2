@@ -38,9 +38,13 @@
                             <i class="glyphicon glyphicon-user"></i>Gimimo data: {{ $mentor->birthday }}
                             <br />
                             <i class="glyphicon glyphicon-pencil"></i>Įvertinimas: {{ $mentor->rating }}
+                            <br />
+                            <i class="glyphicon glyphicon-phone"></i>Telefono numeris: {{ $mentor->phone }}
+                            <br />
+                            <i class="glyphicon glyphicon-text-size"></i>Trumpai apie: {{ $mentor->about }}
                         </p>
                         <div class="btn-group">
-                        <div class=""> 
+                        <div class="">
                             @if(Auth::guard('student')->check() || !Auth::guest())
                             <a class="btn btn-small btn-info orange-bg" href="{{ route('mentors.appointments', ['mentor' => $mentor]) }}">Užsiėmimai</a>
                             @endif

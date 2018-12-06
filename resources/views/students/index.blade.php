@@ -42,10 +42,9 @@
                                 <br/>
                                 <i class="glyphicon glyphicon-heart"></i>Lytis: {{ $value->gender }}
                                 <br/>
-                                <i class="glyphicon glyphicon-eye-open"></i>Amžius: {{ $value->age }}
+                                <i class="glyphicon glyphicon-eye-open"></i>Gimimo data: {{ $value->birthday }}
                                 <br/>
                                 <i class="glyphicon glyphicon-globe"></i>{{ $value->city }}
-                                <br/>
                             </p>
                             <div class="btn-group">
                                 <div class="lower-button">

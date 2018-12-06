@@ -40,6 +40,11 @@
                             <br />
                             <i class="glyphicon glyphicon-envelope"></i> {{ $value->email }}
                             <br />
+                            <i class="glyphicon glyphicon-heart"></i>Lytis: {{ $value->gender }}
+                            <br/>
+                            <i class="glyphicon glyphicon-eye-open"></i>Gimimo data: {{ $value->birthday }}
+                            <br/>
+                            <i class="glyphicon glyphicon-globe"></i>{{ $value->city }}
                         </p>
                         <div class="btn-group">
                             <div class="lower-button">

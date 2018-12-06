@@ -50,13 +50,33 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('age', 'Amžius:', ['class' => 'control-label']) !!}
-                        {!! Form::text('age', old('age'), ['class' => 'form-control']) !!}
+                        {!! Form::label('birthday', 'Gimimo data:', ['class' => 'control-label']) !!}
+                        {!! Form::date('birthday', old('birthday'), ['class' => 'form-control']) !!}
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('city', 'Miestas:', ['class' => 'control-label']) !!}
                         {!! Form::text('city', old('city'), ['class' => 'form-control']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('address', 'Adresas:', ['class' => 'control-label']) !!}
+                        {!! Form::text('address', old('address'), ['class' => 'form-control']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('education', 'Išsilavinimas:', ['class' => 'control-label']) !!}
+                        {!! Form::select('education', [
+                            'pradinis' => 'Pradinis',
+                            'pagrindinis' => 'Pagrindinis',
+                            'vidurinis' => 'Vidurinis',
+                            'aukštasis' => 'Aukštasis'
+                        ], old('education'), ['class' => 'form-control']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('phone', 'Telefono numeris:', ['class' => 'control-label']) !!}
+                        {!! Form::text('phone', old('phone'), ['class' => 'form-control']) !!}
                     </div>
 
                     {!! Form::hidden('id', $student->id) !!}

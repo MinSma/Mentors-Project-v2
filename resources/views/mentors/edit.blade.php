@@ -50,32 +50,28 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('age', 'Amžius:', ['class' => 'control-label']) !!}
-                        {!! Form::text('age', old('age'), ['class' => 'form-control']) !!}
-                    </div>
-
-                    <div class="form-group">
                         {!! Form::label('city', 'Miestas:', ['class' => 'control-label']) !!}
                         {!! Form::text('city', old('city'), ['class' => 'form-control']) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('topic', 'Tema:', ['class' => 'control-label']) !!}
-                        {!! Form::select('topic', [
-                            'mathematics' => 'Mathematics',
-                            'english' => 'English language',
-                            'it' => 'Information Technology',
-                            'chemistry' => 'Chemistry',
-                            'physics' => 'Physics',
-                            'biology' => 'Biology',
-                            'geography' => 'Geography',
-                            'history' => 'History'
-                        ], old('topic'), ['class' => 'form-control']) !!}
+                        {!! Form::label('birthday', 'Gimimo data:', ['class' => 'control-label']) !!}
+                        {!! Form::date('birthday', old('birthday'), ['class' => 'form-control']) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('fixed_hour_price', 'Valandinis Įkainis:', ['class' => 'control-label']) !!}
-                        {!! Form::text('fixed_hour_price', old('fixed_hour_price'), ['class' => 'form-control']) !!}
+                        {!! Form::label('address', 'Adresas:', ['class' => 'control-label']) !!}
+                        {!! Form::text('address', old('address'), ['class' => 'form-control']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('about', 'Trumpai apie save:', ['class' => 'control-label']) !!}
+                        {!! Form::text('about', old('about'), ['class' => 'form-control']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('phone', 'Telefono numeris:', ['class' => 'control-label']) !!}
+                        {!! Form::text('phone', old('phone'), ['class' => 'form-control']) !!}
                     </div>
 
                     {!! Form::hidden('id', $mentor->id) !!}

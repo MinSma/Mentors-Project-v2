@@ -33,13 +33,55 @@
     {{ Form::model($user, array('route' => array('users.update', $user), 'method' => 'PUT')) }}
 
     <div class="form-group">
-        {!! Form::label('name', 'Vardas', ['class' => 'control-label']) !!}
-        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+        {!! Form::label('first_name', 'Vardas', ['class' => 'control-label']) !!}
+        {!! Form::text('first_name', old('first_name'), ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('last_name', 'Pavardė', ['class' => 'control-label']) !!}
+        {!! Form::text('last_name', old('last_name'), ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('gender', 'Lytis:', ['class' => 'control-label']) !!}
+        {!! Form::select('gender', [
+            'vyras' => 'Vyras',
+            'moteris' => 'Moteris'
+        ], old('topic'), ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('birthday', 'Gimimo data:', ['class' => 'control-label']) !!}
+        {!! Form::date('birthday', old('birthday'), ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('city', 'Miestas:', ['class' => 'control-label']) !!}
+        {!! Form::text('city', old('city'), ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('address', 'Adresas:', ['class' => 'control-label']) !!}
+        {!! Form::text('address', old('address'), ['class' => 'form-control']) !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('email', 'Elektroninio Pašto Adresas:', ['class' => 'control-label']) !!}
         {!! Form::text('email', null, ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('role', 'Rolė:', ['class' => 'control-label']) !!}
+        {!! Form::select('role', [
+            'payment_admin' => 'Mokėjimų sistemos administratorius',
+            'reservation_admin' => 'Rezervacijų sistemos administratorius',
+            'sys_admin' => 'Sistemos administratorius',
+        ], old('role'), ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('phone', 'Telefono numeris:', ['class' => 'control-label']) !!}
+        {!! Form::text('phone', old('phone'), ['class' => 'form-control']) !!}
     </div>
 
     {!! Form::hidden('id', $user->id) !!}

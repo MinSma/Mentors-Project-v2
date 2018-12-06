@@ -297,7 +297,7 @@ class MentorsController extends Controller
             return redirect()->back()
                 ->with('status', 'Slaptažodis buvo sėkmingai pakeistas');
         else
-            return redirect()->back()->with('status', 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis');
+            return redirect()->back()->withErrors(['passwordChange' => 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis']);
     }
 
     /**
