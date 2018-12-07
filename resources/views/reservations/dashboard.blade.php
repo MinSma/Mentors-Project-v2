@@ -27,7 +27,7 @@
                                 <br/>
                             </p>
                             <div class="btn-group col-xs-4 col-sm-4 col-md-5">
-                                @if (Auth::guard('mentor')->check())
+                                @if (Auth::guard('mentor')->check() && $value->status != 'Patvirtinta')
                                     <div class="lower-button">
                                         <a class="btn btn-small btn-info orange-bg"
                                            href="{{ route('reservations.confirm', ['reservation' => $value]) }}">Patvirtinti rezervacija</a>
@@ -40,6 +40,14 @@
                                     {{ Form::submit('Ištrinti Rezervacija', array('class' => 'btn btn-small btn-info orange-bg')) }}
                                     {{ Form::close() }}
                                 @endif
+
+                                @if (Auth::guard('student')->check() && $value->status == 'Patvirtinta')
+                                        <div class="lower-button">
+                                            <a class="btn btn-small btn-info orange-bg"
+                                               href="{{ route('reservations.confirm', ['reservation' => $value]) }}">Apmoketi</a>
+                                        </div>
+                                @endif
+
                             </div>
                         </div>
                     </div>

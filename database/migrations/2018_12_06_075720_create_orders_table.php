@@ -20,6 +20,8 @@ class CreateOrdersTable extends Migration
             $table->boolean('mentor_confirmation');
             $table->boolean('student_confirmation');
             $table->dateTime('payment_date')->nullable();
+            $table->integer('reservation_id')->unsigned();
+            $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->timestamps();
         });
     }

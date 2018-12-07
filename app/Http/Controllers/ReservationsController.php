@@ -83,6 +83,7 @@ class ReservationsController extends Controller
             'creation_date' => date('Y-m-d H:i:s'),
             'mentor_confirmation' => false,
             'student_confirmation' => false,
+            'reservation_id' => $reservation->id
         ];
         
         $this->ordersRepository->create($data);

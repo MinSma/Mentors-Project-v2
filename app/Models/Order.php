@@ -12,5 +12,6 @@ class Order extends Model
         'mentor_confirmation',
         'student_confirmation',
         'payment_date',
+        'reservation_id'
     ];
 }
