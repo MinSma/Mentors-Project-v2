@@ -5,6 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\BankAccount::class, function (Faker $faker) {
     return [
-        'amount' => $faker->numberBetween(0, 0)
+        'amount' => $faker->numberBetween(0, 0),
+        'askings' => $faker->numberBetween(0, 0)
     ];
 });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PasswordChangeRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\BankAccount;
+use App\Repositories\BankAccountsRepository;
 use App\Repositories\UsersRepository;
 use App\Services\PasswordChangeService;
 use App\User;
@@ -25,15 +27,18 @@ class UsersController extends Controller
      * @var PasswordChangeService
      */
     private $passwordChangeService;
+    
+    private $bankAccountsRepository;
 
     /**
      * UsersController constructor.
      * @param UsersRepository $usersRepository
      */
-    public function __construct(UsersRepository $usersRepository, PasswordChangeService $passwordChangeService)
+    public function __construct(UsersRepository $usersRepository, PasswordChangeService $passwordChangeService, BankAccountsRepository $bankAccountsRepository)
     {
         $this->usersRepository = $usersRepository;
         $this->passwordChangeService = $passwordChangeService;
+        $this->bankAccountsRepository = $bankAccountsRepository;
     }
 
     /**
@@ -163,5 +168,22 @@ class UsersController extends Controller
                 ->with('status', 'Slaptažodis buvo sėkmingai pakeistas');
         else
             return redirect()->back()->withErrors(['passwordChange' => 'Slaptažodis nebuvo pakeistas, įvestas blogas dabartinis slaptažodis']);
+    }
+    
+    public function askings()
+    {
+        $askings = $this->bankAccountsRepository->all()->where('askings', !0);
+    
+        return view('users.askings', ['askings' => $askings]);
+    }
+    
+    public function confirmAskings(BankAccount $bankAccount)
+    {
+        $bankAccount->update([
+            'amount' => $bankAccount['amount'] + $bankAccount['askings'],
+            'askings' => 0
+        ]);
+    
+        return redirect()->back()->with('status', 'Patvirtinta');
     }
 }

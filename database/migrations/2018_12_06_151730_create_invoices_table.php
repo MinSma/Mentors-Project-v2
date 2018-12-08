@@ -20,6 +20,8 @@ class CreateInvoicesTable extends Migration
             $table->string('comment');
             $table->integer('bank_account_id')->unsigned();
             $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
+            $table->integer('order_id')->unsigned();
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->timestamps();
         });
     }

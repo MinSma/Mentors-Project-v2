@@ -33,7 +33,7 @@
                             $bankAccount['amount']
                         }}
                     </div>
-                    <a href="{{ route('payments.paymentForm') }}" class="circle-tile-footer">Atlikti pervedimą <i class="fa fa-chevron-circle-right"></i></a>
+                    <a href="{{ route('payments.paymentForm') }}" class="circle-tile-footer">Atlikti papildyma <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
             </div>
         </div>

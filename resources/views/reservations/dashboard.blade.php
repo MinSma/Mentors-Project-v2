@@ -44,7 +44,7 @@
                                 @if (Auth::guard('student')->check() && $value->status == 'Patvirtinta')
                                         <div class="lower-button">
                                             <a class="btn btn-small btn-info orange-bg"
-                                               href="{{ route('reservations.confirm', ['reservation' => $value]) }}">Apmoketi</a>
+                                               href="{{ route('invoices.pay', ['reservation' => $value]) }}">Apmoketi</a>
                                         </div>
                                 @endif
 
