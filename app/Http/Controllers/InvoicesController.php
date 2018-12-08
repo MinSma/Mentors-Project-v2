@@ -56,13 +56,13 @@ class InvoicesController extends Controller
     
         $bankAccount = $this->bankAccountsRepository->model()::where('id', $student['bank_accounts_id'])->first();
         
-        if(($appointment['price'] + $appointment['additional_cost']) > $bankAccount['amount']){
-            return redirect()->back()->withErrors( ['payments' => 'Neturite saskaitoje pinigu']);
-        }
-        else{
+        if(($appointment['price'] + $appointment['additional_cost']) < $bankAccount['amount']){
             $bankAccount->update([
                 'amount' => $bankAccount['amount'] - ($appointment['price'] + $appointment['additional_cost'])
             ]);
+        }
+        else{
+            return redirect()->back()->withErrors( ['payments' => 'Neturite saskaitoje pinigu arba ivyko klaida']);
         }
         
         $invoiceData = [
