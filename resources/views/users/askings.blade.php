@@ -29,11 +29,8 @@
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="well well-sm">
                     <div class="row">
-                        <div class="col-xs-4 col-sm-4 col-md-5">
-                            <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
-                        </div>
-                        <div class="col-xs-8 col-sm-8 col-md-7">
-                            <h4 class="found-title">
+                        <div class="col-xs-12 col-sm-12 col-md-7">
+                            <h4 class="found-title">Saskaitos ID:
                                 {{ $value->id }}</h4>
                             <p>
                                 <i class="glyphicon glyphicon-user"></i> Turima suma: {{ $value->amount }}

@@ -39,7 +39,6 @@
                     <li><a href="{{ route('login.disconnect') }}">Atsijungti</a></li>
                 @elseif (Auth::guard('web')->check())
                     <li><a href="{{ route('users.dashboard') }}">Vartotojo Erdvė</a></li>
-                    <li><a href="{{ route('users.askings') }}">Saskaitu pildymai</a></li>
                     <li><a href="/users/{{ Auth::guard('web')->user()['id'] }}/edit">Duomenų Keitimas</a></li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Mentoriai <b class="caret"></b></a>

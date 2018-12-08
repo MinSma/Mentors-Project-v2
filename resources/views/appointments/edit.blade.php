@@ -1,7 +1,6 @@
 @include('guestPagesLayouts.homeHeaderIncludes')
 @include('layouts.NavPanel')
 @include('guestPagesLayouts.homeHeaderSection')
-<h1 class="mb-2 text-center">Užsiėmimo duomenų keitimas</h1>
 
 @if(session()->has('status'))
     <div class="alert alert-success">
@@ -18,6 +17,7 @@
         </ul>
     </div>
 @endif
+<h1 class="mb-2 text-center">Užsiėmimo duomenų keitimas</h1>
 
 
 <br />

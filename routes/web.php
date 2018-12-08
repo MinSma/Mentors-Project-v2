@@ -47,6 +47,8 @@ Route::put('students/{student}/update', 'StudentsController@update')->name('stud
 Route::delete('students/{student}/delete', 'StudentsController@destroy')->name('students.delete')->middleware('auth');
 
 // Users
+Route::get('users/studentsAskings', 'UsersController@askings')->name('users.askings')->middleware('auth');
+Route::get('users/{bankAccount}/askings', 'UsersController@confirmAskings')->name('users.confirmAskings')->middleware('auth');
 Route::get('users/', 'UsersController@index')->name('users.index')->middleware('auth');
 Route::get('users/dashboard', 'UsersController@dashboard')->name('users.dashboard')->middleware('auth');
 Route::get('users/dashboard/change',
@@ -55,8 +57,6 @@ Route::post('users/dashboard/change', 'UsersController@storePassword')->name('us
 Route::get('users/create', 'UsersController@create')->name('users.create');
 Route::get('users/{user}/', 'UsersController@show')->name('users.show');
 Route::get('users/{user}/edit', 'UsersController@edit')->name('users.edit')->middleware('auth');
-Route::get('users/studentsAskings', 'UsersController@askings')->name('users.askings')->middleware('auth');
-Route::get('users/{bankAccount}/askings', 'UsersController@confirmAskings')->name('users.confirmAskings')->middleware('auth');
 Route::post('users/', 'UsersController@store')->name('users.store');
 Route::put('users/{user}/update', 'UsersController@update')->name('users.update')->middleware('auth');
 Route::delete('users/{user}/delete', 'UsersController@destroy')->name('users.delete')->middleware('auth');

@@ -5,6 +5,22 @@
 @include('layouts.NavPanel')
 @include('guestPagesLayouts.homeHeaderSection')
 
+@if(session()->has('status'))
+    <div class="alert alert-success">
+        {{ session()->get('status') }}
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <h1 class="mb-2 text-center">Studentai, kurie priklauso Jums:</h1>
 <br />
 <div class="container lower">

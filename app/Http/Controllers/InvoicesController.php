@@ -7,14 +7,13 @@ use App\Repositories\AppointmentsRepository;
 use App\Repositories\BankAccountsRepository;
 use App\Repositories\InvoicesRepository;
 use App\Repositories\LessonsRepository;
-use App\Repositories\MentorsRepository;
 use App\Repositories\OrdersRepository;
-use App\Repositories\StudentsRepository;
+use Illuminate\Support\Facades\Auth;
+
 
 class InvoicesController extends Controller
 {
     private $ordersRepository;
-    private $mentorsRepository;
     private $invoiceRepository;
     private $bankAccountsRepository;
     private $studentsRepository;
@@ -23,18 +22,14 @@ class InvoicesController extends Controller
     
     public function __construct(
         OrdersRepository $ordersRepository,
-        MentorsRepository $mentorsRepository,
         InvoicesRepository $invoicesRepository,
         BankAccountsRepository $bankAccountsRepository,
-        StudentsRepository $studentsRepository,
         AppointmentsRepository $appointmentsRepository,
         LessonsRepository $lessonsRepository
     ) {
         $this->ordersRepository  = $ordersRepository;
-        $this->mentorsRepository = $mentorsRepository;
         $this->invoiceRepository = $invoicesRepository;
         $this->bankAccountsRepository = $bankAccountsRepository;
-        $this->studentsRepository = $studentsRepository;
         $this->appointmentsRepository = $appointmentsRepository;
         $this->lessonsRepository = $lessonsRepository;
     }
@@ -57,11 +52,11 @@ class InvoicesController extends Controller
         
         $lesson =  $this->lessonsRepository->model()::where('id', $reservation['mentor_id'])->first();
         
-        $appointment =  $this->appointmentsRepository->model()::where('id', $lesson['lesson_id'])->first();
-        
+        $appointment =  $this->appointmentsRepository->model()::where('lesson_id', $lesson['id'])->first();
+    
         $bankAccount = $this->bankAccountsRepository->model()::where('id', $student['bank_accounts_id'])->first();
         
-        if(($appointment['price'] + $appointment['additional_cost']) < $bankAccount['amount']){
+        if(($appointment['price'] + $appointment['additional_cost']) > $bankAccount['amount']){
             return redirect()->back()->withErrors( ['payments' => 'Neturite saskaitoje pinigu']);
         }
         else{
@@ -74,6 +69,8 @@ class InvoicesController extends Controller
             'sum'      => ($appointment['price'] + $appointment['additional_cost']),
             'data'     => date('Y-m-d H:i:s'),
             'comment'  => '',
+            'order_id'  => $order['id'],
+            'bank_account_id'  => $bankAccount['id'],
         ];
         
         $this->invoiceRepository->create($invoiceData);

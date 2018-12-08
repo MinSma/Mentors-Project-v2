@@ -10,6 +10,7 @@ class Invoice extends Model
         'sum',
         'data',
         'comment',
-        'bank_account_id'
+        'bank_account_id',
+        'order_id'
     ];
 }
