@@ -82,9 +82,9 @@ class ReservationsController extends Controller
     {
         $id = Auth::guard('mentor')->user()['id'];
         
-        $lesson = $this->lessonsRepository->model()::where('mentor_id', $id);
+        $lesson = $this->lessonsRepository->model()::where('mentor_id', $id)->first();
         
-        $appointment = $this->appointmentsRepository->model()::where('lesson_id', $lesson['id']);
+        $appointment = $this->appointmentsRepository->model()::where('lesson_id', $lesson['id'])->first();
         
         $appointment->update([
             'state' => 'Uzimtas'
