@@ -85,7 +85,7 @@ class AppointmentsController extends Controller
                 'language'          => $request->getLanguage(),
                 'additional_info'   => $request->getAdditionalInfo(),
                 'lesson_id'         => $request->getLessonId(),
-                'state'             => 'free'
+                'state'             => 'Laisvas'
             ];
             
             $this->appointmentsRepository->create($data);
