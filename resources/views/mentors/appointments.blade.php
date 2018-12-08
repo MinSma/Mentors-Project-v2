@@ -32,6 +32,8 @@
                             <p>
                                 <i class="glyphicon glyphicon-user"></i>Data: {{ $value->date }}
                                 <br/>
+                                <i class="glyphicon glyphicon-book"></i>Dalykas: {{ $value->subject }}
+                                <br/>
                                 <i class="glyphicon glyphicon-envelope"></i>Laikas: {{ $value->time }}
                                 <br/>
                                 <i class="glyphicon glyphicon-heart"></i>Trukmė: {{ $value->duration }}

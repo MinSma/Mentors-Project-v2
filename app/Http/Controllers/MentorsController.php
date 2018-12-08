@@ -353,6 +353,7 @@ class MentorsController extends Controller
 
             foreach ($appointmentsArray as $appointment)
             {
+                $appointment['subject'] = $lesson['subject'];
                 array_push($appointments, $appointment);
             }
         }
