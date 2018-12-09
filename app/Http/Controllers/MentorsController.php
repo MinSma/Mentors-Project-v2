@@ -264,13 +264,6 @@ class MentorsController extends Controller
             $key->delete();
         }
 
-        $bankAccount = $this->bankAccountsRepository->model()
-            ::where('mentor_id', $mentor['id'])->get();
-
-        foreach ($bankAccount as $key) {
-            $key->delete();
-        }
-
         $mentor->delete();
 
         return redirect()->back()

@@ -233,13 +233,6 @@ class StudentsController extends Controller
             $key->delete();
         }
 
-        $bankAccount = $this->bankAccountsRepository->model()
-            ::where('student_id', $student['id'])->get();
-
-        foreach ($bankAccount as $key) {
-            $key->delete();
-        }
-
         $student->delete();
 
         return redirect()->back()
